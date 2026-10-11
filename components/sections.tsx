@@ -48,7 +48,7 @@ export function FeaturedProjects() {
       </div>
       <MotionLink
         href="/projects"
-        className="mt-14 inline-flex items-center gap-4 text-4xl font-bold tracking-[-0.04em]"
+        className="mt-14 inline-flex self-center items-center gap-4 text-4xl font-bold tracking-[-0.04em]"
         initial={{ gap: 16, color: color.fg }}
         whileHover={{ gap: 24 }}
         whileTap={{ color: color.muted }}

@@ -38,11 +38,11 @@ body {
   color: var(--color-bg);
 }
 
-/* Content column: 24px desktop gutters / 1872px inner width on a 1920px page. */
+/* Content column: 24px desktop gutters / 1392px inner width on a 1440px frame. */
 .frame {
   margin-inline: auto;
   width: 100%;
-  max-width: 1920px;
+  max-width: 1440px;
   padding-inline: 24px;
 }
 
