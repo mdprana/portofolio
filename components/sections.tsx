@@ -43,7 +43,7 @@ export function FeaturedProjects() {
       <FitText text="Featured Projects" />
       <div className="grid gap-[72px] md:grid-cols-2 md:gap-x-24">
         {homeProjects.map((project) => (
-          <WorkCard key={project.slug} project={project} />
+          <WorkCard key={project.slug} project={project} featured />
         ))}
       </div>
       <MotionLink

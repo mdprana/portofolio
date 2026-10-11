@@ -1,11 +1,18 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { animate, inView, motion, useMotionValue, useSpring } from "motion/react";
 import { quint } from "@/lib/motion";
+import { ArrowUp } from "@/components/icons";
 
 const spring = { stiffness: 500, damping: 60, mass: 1 };
+const pointerQuery = "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
+const subscribePointer = (notify: () => void) => {
+  const query = matchMedia(pointerQuery);
+  query.addEventListener("change", notify);
+  return () => query.removeEventListener("change", notify);
+};
 
 /**
  * Site-wide motion: inversion cursor, inertial scroll, scroll reveals.
@@ -14,6 +21,8 @@ const spring = { stiffness: 500, damping: 60, mass: 1 };
  */
 export default function SiteMotion() {
   const pathname = usePathname();
+  const eligible = useSyncExternalStore(subscribePointer, () => matchMedia(pointerQuery).matches, () => false);
+  const [projectCursor, setProjectCursor] = useState(false);
   const opacity = useMotionValue(0);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -45,21 +54,37 @@ export default function SiteMotion() {
     };
 
     /* ---- Cursor + inertial scroll are pointer-only extras. ---- */
-    if (!fine || reduce) {
+    if (!fine || reduce || !eligible) {
       return resetReveal;
     }
 
-    root.classList.add("custom-cursor");
+    const featured = !!document.querySelector("[data-featured-card]");
+    const cursorClass = featured ? "featured-cursor" : "custom-cursor";
+    root.classList.add(cursorClass);
     let visible = false;
     let target = scrollY, scrolling = false, last = 0;
 
     const fade = (to: number) => animate(opacity, to, { type: "tween", duration: 0.2 });
+    const select = (node: Element | null) => {
+      const active = featured && !!node?.closest("[data-project-media]");
+      root.classList.toggle("featured-media-active", active);
+      setProjectCursor(active);
+    };
+    const leave = () => {
+      visible = false;
+      select(null);
+      fade(0);
+    };
     const move = (event: PointerEvent) => {
+      if (event.pointerType === "touch") { leave(); return; }
       mouseX.set(event.clientX);
       mouseY.set(event.clientY);
+      select(event.target instanceof Element ? event.target : null);
       if (!visible) { x.jump(event.clientX); y.jump(event.clientY); visible = true; fade(1); }
     };
-    const leave = () => { visible = false; fade(0); };
+    const scroll = () => {
+      if (visible) select(document.elementFromPoint(mouseX.get(), mouseY.get()));
+    };
     const press = () => size.set(16);
     const release = () => size.set(28);
 
@@ -96,6 +121,7 @@ export default function SiteMotion() {
     const stop = () => { scrolling = false; target = scrollY; cancelAnimationFrame(frame); frame = 0; last = 0; };
 
     window.addEventListener("pointermove", move, { passive: true });
+    window.addEventListener("scroll", scroll, { passive: true });
     document.addEventListener("pointerleave", leave);
     window.addEventListener("blur", leave);
     window.addEventListener("pointerdown", press);
@@ -107,8 +133,10 @@ export default function SiteMotion() {
     return () => {
       cancelAnimationFrame(frame);
       resetReveal();
-      root.classList.remove("custom-cursor");
+      root.classList.remove(cursorClass, "featured-media-active");
+      setProjectCursor(false);
       window.removeEventListener("pointermove", move);
+      window.removeEventListener("scroll", scroll);
       document.removeEventListener("pointerleave", leave);
       window.removeEventListener("blur", leave);
       window.removeEventListener("pointerdown", press);
@@ -119,13 +147,35 @@ export default function SiteMotion() {
       opacity.set(0);
       size.jump(28);
     };
-  }, [pathname, opacity, mouseX, mouseY, x, y, size]);
+  }, [pathname, eligible, opacity, mouseX, mouseY, x, y, size]);
 
   return (
-    <motion.div
-      className="site-cursor"
-      aria-hidden="true"
-      style={{ x, y, width: size, height: size, opacity }}
-    />
+    <>
+      <motion.div
+        className="site-cursor"
+        aria-hidden="true"
+        style={{ x, y, width: size, height: size, opacity, display: projectCursor ? "none" : undefined }}
+      />
+      {eligible && projectCursor && (
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none fixed top-0 left-0 z-[1000] flex items-center gap-3"
+          style={{ x, y, translateX: "-18px" }}
+        >
+          <span className="flex size-9 items-center justify-center rounded-pill bg-white text-black">
+            <ArrowUp className="rotate-45" size={24} />
+          </span>
+          <span className="flex h-9 items-center whitespace-nowrap rounded-pill bg-black/20 px-4 text-sm font-medium tracking-[-0.01em] text-white backdrop-blur-[8px]">
+            VIEW PROJECT
+          </span>
+        </motion.div>
+      )}
+      <style>{`
+        @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+          .featured-cursor.featured-media-active [data-project-media],
+          .featured-cursor.featured-media-active [data-project-media] * { cursor: none !important; }
+        }
+      `}</style>
+    </>
   );
 }

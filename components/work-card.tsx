@@ -1,16 +1,21 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { motion, useMotionValue } from "motion/react";
 import { ArrowUp } from "@/components/icons";
 import { MotionLink } from "@/components/motion";
 import type { Project } from "@/lib/content";
 import { hoverRoot, quint, tw } from "@/lib/motion";
 
-/**
- * Work Card (Figma set 25:57). Hover swaps Default → Hover: the cover zooms and
- * a "VIEW PROJECT" cursor badge follows the pointer.
- */
-export default function WorkCard({ project }: { project: Project }) {
+const pointerQuery = "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
+const subscribePointer = (notify: () => void) => {
+  const query = matchMedia(pointerQuery);
+  query.addEventListener("change", notify);
+  return () => query.removeEventListener("change", notify);
+};
+
+export default function WorkCard({ project, featured = false }: { project: Project; featured?: boolean }) {
+  const interactive = useSyncExternalStore(subscribePointer, () => matchMedia(pointerQuery).matches, () => false);
   const left = useMotionValue(0);
   const top = useMotionValue(0);
 
@@ -19,6 +24,25 @@ export default function WorkCard({ project }: { project: Project }) {
     left.set(e.clientX - box.left);
     top.set(e.clientY - box.top);
   };
+
+  if (featured) {
+    return (
+      <MotionLink href={`/projects/${project.slug}`} data-featured-card className="flex flex-col gap-2 overflow-hidden">
+        <motion.div
+          data-project-media
+          className="relative aspect-[648/720] bg-surface"
+          whileHover={interactive ? { scale: 1.1 } : undefined}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", duration: 0.45, bounce: 0.25 }}
+          style={{ backgroundImage: `linear-gradient(135deg, ${project.cover[0]}, ${project.cover[1]})` }}
+        />
+        <div className="flex items-baseline justify-between gap-4 pt-10 pb-6">
+          <h3 className="min-w-0 text-4xl font-bold tracking-[-0.04em]">{project.title}</h3>
+          <span className="shrink-0 text-2xl text-muted">{project.year}</span>
+        </div>
+      </MotionLink>
+    );
+  }
 
   return (
     <MotionLink href={`/projects/${project.slug}`} className="block" {...hoverRoot}>
