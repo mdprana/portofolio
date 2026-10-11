@@ -1,8 +1,10 @@
-import * as motion from "motion/react-client";
+"use client";
+
+import { motion } from "motion/react";
 import FitText from "@/components/fit-text";
 import HeroImage from "@/components/hero-image";
 import Marquee from "@/components/marquee";
-import { MotionLink } from "@/components/motion";
+import { MotionLink, RowMotion, useStaticMotion } from "@/components/motion";
 import Reveal from "@/components/reveal";
 import WorkCard from "@/components/work-card";
 import { ArrowRight, ArrowSub } from "@/components/icons";
@@ -14,7 +16,7 @@ import {
   stats,
   tools,
 } from "@/lib/content";
-import { color, hoverRoot, rowBorder, rowGap, textMuted, tw } from "@/lib/motion";
+import { color, hoverRoot, rowBorder, textMuted, tw } from "@/lib/motion";
 
 const t300 = tw(300);
 const tileText = { rest: { color: color.subtle }, hover: { color: color.black } };
@@ -22,7 +24,7 @@ const tileText = { rest: { color: color.subtle }, hover: { color: color.black } 
 /* Hero (Figma 14:15) — pad 0/24/8/24, gap 24. */
 export function Hero() {
   return (
-    <section id="top" className="frame flex flex-col gap-6 pb-2">
+    <section className="frame flex flex-col gap-6 pb-2">
       <FitText text={profile.headline} as="h1" className="text-fg" />
       <div className="pb-8">
         <p className="body-xl ml-auto max-w-[980px] text-muted">
@@ -38,6 +40,7 @@ export function Hero() {
 
 /* Work Section (14:21) — gap 36, grid gap 72, "View all" pad-top 56. */
 export function FeaturedProjects() {
+  const reduce = useStaticMotion();
   return (
     <section className="frame flex flex-col gap-9 pt-6 pb-8">
       <FitText text="Featured Projects" />
@@ -50,7 +53,7 @@ export function FeaturedProjects() {
         href="/projects"
         className="mt-14 inline-flex self-center items-center gap-4 text-4xl font-bold tracking-[-0.04em]"
         initial={{ gap: 16, color: color.fg }}
-        whileHover={{ gap: 24 }}
+        whileHover={{ gap: reduce ? 16 : 24 }}
         whileTap={{ color: color.muted }}
         transition={{ ...t300, gap: { duration: 0 } }}
       >
@@ -67,7 +70,7 @@ export function About() {
     <section className="frame flex flex-col gap-10 pb-[120px] pt-6">
       <FitText text="About Prana" />
       <div className="flex flex-col gap-12 md:flex-row md:justify-between">
-        <div className="h-[340px] w-[310px] shrink-0 bg-[url(/portrait.jpg)] bg-cover bg-center md:sticky md:top-24" />
+        <div className="h-[340px] w-[310px] max-w-full shrink-0 bg-[url(/portrait.jpg)] bg-cover bg-center md:sticky md:top-24" />
         <div className="flex max-w-[760px] flex-col gap-14">
           {profile.paragraphs.map((paragraph) => (
             <p key={paragraph} className="body-xl text-fg">
@@ -100,7 +103,7 @@ export function Capabilities() {
             variants={rowBorder}
             transition={t300}
           >
-            <motion.span className="flex h-[100px] items-center px-0" variants={rowGap} transition={t300}>
+            <RowMotion className="flex min-h-[100px] items-center px-0">
               <ArrowSub className={item.dim ? "text-dim" : "text-fg"} />
               <span
                 className={`text-4xl font-bold tracking-[-0.04em] ${
@@ -109,7 +112,7 @@ export function Capabilities() {
               >
                 {item.label}
               </span>
-            </motion.span>
+            </RowMotion>
           </motion.li>
         ))}
         <li className="pt-12">
@@ -125,6 +128,7 @@ export function Capabilities() {
 /* Tech Stack (32:156) — gap 40, label left / intro right (bottom aligned). */
 export function TechStack() {
   const track = [...tools, ...tools];
+  const reduce = useStaticMotion();
 
   return (
     <section className="flex flex-col gap-10 pb-[120px]">
@@ -147,7 +151,7 @@ export function TechStack() {
             <div key={`${tool.name}-${i}`} className="flex items-center gap-10">
               <div className="flex items-center gap-3.5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={tool.logo} alt="" width={28} height={28} />
+                <img src={tool.logo} alt="" width={28} height={28} style={{ filter: "brightness(0) invert(1)" }} />
                 <span className="text-[28px] font-bold tracking-[-0.03em]">
                   {tool.name}
                 </span>
@@ -161,7 +165,8 @@ export function TechStack() {
         {tools.map((tool) => (
           <motion.li
             key={tool.name}
-            className="relative flex h-[232px] w-full flex-col justify-between border border-line bg-bg p-4"
+            data-tool={tool.name}
+            className="relative flex h-[232px] min-w-0 w-full flex-col justify-between border border-line bg-bg p-4"
             {...hoverRoot}
             variants={{
               rest: { borderColor: color.line, backgroundColor: color.bg },
@@ -173,15 +178,15 @@ export function TechStack() {
               <span>{tool.category}</span>
               <span>{tool.index}</span>
             </motion.div>
-            <div className="flex items-end justify-between">
+            <div className="flex flex-col items-start gap-3">
               <motion.img
                 src={tool.logo}
                 alt=""
                 width={56}
                 height={56}
                 variants={{
-                  rest: { width: 56, height: 56, filter: "brightness(1)" },
-                  hover: { width: 72, height: 72, filter: "brightness(0)" },
+                  rest: { width: 56, height: 56, filter: "brightness(0) invert(1)" },
+                  hover: { width: reduce ? 56 : 72, height: reduce ? 56 : 72, filter: "brightness(0) invert(0)" },
                 }}
                 transition={t300}
               />
@@ -193,20 +198,11 @@ export function TechStack() {
                 {tool.name}
               </motion.span>
             </div>
-            {/* Original only transitioned opacity; the colour snapped. */}
-            <motion.span
-              className="absolute bottom-4 left-4 text-[13px] text-subtle opacity-0"
-              variants={{ rest: { opacity: 0, color: color.subtle }, hover: { opacity: 1, color: color.black } }}
-              transition={{ ...t300, color: { duration: 0 } }}
-            >
-              {tool.years}
-            </motion.span>
           </motion.li>
         ))}
       </ul>
 
       <div className="frame flex justify-between text-sm text-subtle">
-        <span>Hover a tile to see years of experience</span>
         <span>Always learning →</span>
       </div>
     </section>

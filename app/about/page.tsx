@@ -3,11 +3,11 @@ import * as motion from "motion/react-client";
 import FitText from "@/components/fit-text";
 import Footer from "@/components/footer";
 import Nav from "@/components/nav";
-import { MotionLink } from "@/components/motion";
+import { MotionLink, RowMotion } from "@/components/motion";
 import Reveal from "@/components/reveal";
 import { ArrowSub } from "@/components/icons";
 import { capabilities, profile, timeline } from "@/lib/content";
-import { hoverRoot, rowBorder, rowGap, textMuted, tw } from "@/lib/motion";
+import { hoverRoot, rowBorder, textMuted, tw } from "@/lib/motion";
 
 export const metadata: Metadata = { title: "About" };
 
@@ -21,7 +21,7 @@ export default function AboutPage() {
           <FitText text="About Prana" as="h1" />
 
           <div className="flex flex-col gap-12 md:flex-row md:gap-16">
-            <div className="h-[340px] w-[310px] shrink-0 bg-[url(/portrait.jpg)] bg-cover bg-center md:sticky md:top-24" />
+            <div className="h-[340px] w-[310px] max-w-full shrink-0 bg-[url(/portrait.jpg)] bg-cover bg-center md:sticky md:top-24" />
 
             <div className="flex max-w-[760px] flex-col gap-10">
               <p className="body-xl text-fg">{profile.paragraphs[0]}</p>
@@ -75,16 +75,12 @@ export default function AboutPage() {
                 variants={rowBorder}
                 transition={tw(300)}
               >
-                <motion.span
-                  className="flex items-center py-7 text-4xl font-bold tracking-[-0.04em]"
-                  variants={rowGap}
-                  transition={tw(300)}
-                >
+                <RowMotion className="flex items-center py-7 text-4xl font-bold tracking-[-0.04em]">
                   <ArrowSub className={item.dim ? "text-dim" : "text-fg"} />
                   <span className={item.dim ? "text-dim" : "text-fg"}>
                     {item.label}
                   </span>
-                </motion.span>
+                </RowMotion>
               </motion.li>
             ))}
             <li className="pt-12">

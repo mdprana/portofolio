@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Nav from "@/components/nav";
-import Footer from "@/components/footer";
+import Footer, { ResumeButton } from "@/components/footer";
 import FitText from "@/components/fit-text";
 import * as motion from "motion/react-client";
 import Reveal from "@/components/reveal";
+import { HoverArrow } from "@/components/motion";
 import { ArrowRight } from "@/components/icons";
 import { footerColumns, profile } from "@/lib/content";
 import { hoverRoot, textMuted, tw } from "@/lib/motion";
@@ -35,6 +36,7 @@ export default function ContactPage() {
 
           <Reveal className="flex max-w-[820px] flex-col gap-6 md:ml-auto">
             <p className="body-xl text-muted">{profile.availability}</p>
+            <div><ResumeButton /></div>
           </Reveal>
 
           <Reveal delay={80} className="flex flex-col">
@@ -51,13 +53,9 @@ export default function ContactPage() {
                     <span className="text-[clamp(32px,4.5vw,56px)] font-bold leading-none tracking-[-0.04em]">
                       {row.label}
                     </span>
-                    <motion.span
-                      className="shrink-0"
-                      variants={{ rest: { x: 0 }, hover: { x: 8 } }}
-                      transition={tw(300)}
-                    >
+                    <HoverArrow>
                       <ArrowRight size={40} className="block" />
-                    </motion.span>
+                    </HoverArrow>
                   </motion.a>
                 </li>
               ))}

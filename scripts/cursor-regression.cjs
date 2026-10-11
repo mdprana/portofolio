@@ -205,7 +205,7 @@ const evidence = { base, timestamp: new Date().toISOString(), checks: [], errors
     evidence.passed = false; evidence.failure = error.stack; process.exitCode = 1;
   } finally {
     await browser.close();
-    fs.writeFileSync(path.join(__dirname, '../docs/cursor-regression-evidence.json'), JSON.stringify(evidence, null, 2) + '\n');
+    fs.writeFileSync(process.env.OUT_FILE || path.join(__dirname, '../docs/cursor-regression-evidence.json'), JSON.stringify(evidence, null, 2) + '\n');
     console.log(JSON.stringify({ passed: evidence.passed, checks: evidence.checks.length, failure: evidence.failure }, null, 2));
   }
 })().catch(error => { console.error(error); process.exitCode = 1; });

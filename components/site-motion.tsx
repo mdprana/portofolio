@@ -3,6 +3,7 @@
 import { useLayoutEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { animate, inView, motion, useMotionValue, useSpring } from "motion/react";
+import { styleEffect } from "motion";
 import { quint } from "@/lib/motion";
 import { ArrowUp } from "@/components/icons";
 
@@ -48,16 +49,22 @@ export default function SiteMotion() {
       : [...document.querySelectorAll<HTMLElement>(
           "main section > .display, main section > div, main section > ul, footer > .display, footer > div",
         )].filter(node => !node.hasAttribute("data-reveal"));
+    let revealActive = true;
     const reveals = nodes.map(node => animate(node, { opacity: 0, y: 36 }, { duration: 0.22, ease: quint }));
     const stopReveal = nodes.length ? inView(
       nodes,
-      node => { reveals.push(animate(node, { opacity: 1, y: 0 }, { duration: 0.9, ease: quint })); },
+      node => { if (revealActive) reveals.push(animate(node, { opacity: 1, y: 0 }, { duration: 0.9, ease: quint })); },
       { margin: "0px 0px -8% 0px" },
     ) : () => {};
     const resetReveal = () => {
+      revealActive = false;
       stopReveal();
-      reveals.forEach(animation => animation.stop());
-      nodes.forEach(node => { node.style.opacity = ""; node.style.transform = ""; });
+      reveals.forEach(animation => animation.cancel());
+      nodes.forEach(node => {
+        styleEffect.state(node)?.release();
+        node.style.opacity = "";
+        node.style.transform = "";
+      });
     };
 
     /* ---- Cursor + inertial scroll are pointer-only extras. ---- */

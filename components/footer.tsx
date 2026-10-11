@@ -56,33 +56,30 @@ export function ResumeButton() {
 
 export default function Footer() {
   return (
-    <footer className="frame flex flex-col gap-12 pb-8 pt-6">
+    <footer className="frame flex flex-col gap-2 pb-8 pt-6">
       <a href={`mailto:${profile.email}`} aria-label="Get in touch by email"><FitText text="Get in touch" as="p" /></a>
 
-      <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
         <p className="body-xl max-w-[760px] text-muted">
           Have a project, role, or dataset in mind? Let’s talk.
         </p>
-        <div className="flex gap-3">
-          <Pill label="Say Hello" href={`mailto:${profile.email}`} />
-          <ResumeButton />
+        <div className="flex min-w-0 flex-col items-end text-right text-[14px] leading-[1.2] min-[1107px]:text-[19px] min-[1440px]:text-[24px]">
+          <MotionLink href={`mailto:${profile.email}`} {...hoverRoot} whileFocus="hover" variants={textMuted} transition={tw(250)}>Say Hello</MotionLink>
+          <MotionLink href={`mailto:${profile.email}`} className="[overflow-wrap:anywhere]" {...hoverRoot} whileFocus="hover" variants={textMuted} transition={tw(250)}>{profile.email}</MotionLink>
         </div>
       </div>
 
-      <hr className="border-line" />
-
-      <div className="flex flex-col gap-10 md:flex-row md:justify-between">
-        <p className="text-[96px] font-bold leading-[0.8] tracking-[-0.04em]">
+      <div className="mt-[72px] grid grid-cols-2 items-start gap-10 min-[1440px]:grid-cols-[1.5fr_1fr_1fr_auto]">
+        <p className="col-span-2 text-[80px] font-bold leading-[0.8] tracking-[-0.04em] min-[1440px]:col-span-1">
           {profile.wordmark}
         </p>
 
-        <div className="flex flex-wrap gap-16 md:gap-24">
-          {footerColumns.map((column) => (
+          {footerColumns.filter(column => column.label !== "(Contact)").map((column) => (
             <div key={column.label} className="flex flex-col gap-2.5 text-base">
               <p className="text-muted">{column.label}</p>
               {column.links.map((link) =>
                 link.href ? (
-                  <MotionLink key={link.text} href={link.href} {...hoverRoot} variants={textMuted} transition={tw(250)}>
+                  <MotionLink key={link.text} href={link.href} className="text-[24px] font-bold leading-[1.2] min-[1107px]:text-[31px] min-[1440px]:text-[36px]" {...hoverRoot} whileFocus="hover" variants={textMuted} transition={tw(250)}>
                     {link.text}
                   </MotionLink>
                 ) : (
@@ -96,18 +93,13 @@ export default function Footer() {
             href="#top"
             className="inline-flex items-start gap-2 self-start text-base"
             {...hoverRoot}
+            whileFocus="hover"
             variants={textMuted}
             transition={tw(250)}
           >
             Back to Top
             <ArrowUp />
           </MotionLink>
-        </div>
-      </div>
-
-      <div className="flex justify-between text-sm text-subtle">
-        <span suppressHydrationWarning>© {new Date().getFullYear()} Prana. All rights reserved.</span>
-        <span>Designed &amp; built by Prana</span>
       </div>
     </footer>
   );

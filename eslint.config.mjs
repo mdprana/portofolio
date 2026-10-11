@@ -12,6 +12,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "docs/collins-parity-evidence/reference-main.mjs",
   ]),
 ]);
 

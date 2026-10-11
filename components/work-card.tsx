@@ -47,10 +47,10 @@ export default function WorkCard({ project, featured = false }: { project: Proje
 
   return (
     <MotionLink href={`/projects/${project.slug}`} className="block" {...hoverRoot}>
-      <div onMouseMove={move} className="relative aspect-[648/720] overflow-hidden bg-surface">
+      <div onMouseMove={interactive ? move : undefined} className="relative aspect-[648/720] overflow-hidden bg-surface">
         <motion.div
           className="absolute inset-0"
-          variants={{ rest: { scale: 1 }, hover: { scale: 1.04 } }}
+          variants={{ rest: { scale: 1 }, hover: { scale: interactive ? 1.04 : 1 } }}
           transition={{ duration: 0.4, ease: quint }}
           style={{
             backgroundImage: `linear-gradient(135deg, ${project.cover[0]}, ${project.cover[1]})`,

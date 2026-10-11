@@ -109,24 +109,23 @@ export type Tool = {
   name: string;
   category: string;
   index: string;
-  years: string;
   logo: string;
 };
 
 /** Tech Stack (32:156) — 12 elements · 5 groups. */
 export const tools: Tool[] = [
-  { name: "Python", category: "(Language)", index: "01", years: "4 yrs", logo: "/logos/python.svg" },
-  { name: "TensorFlow", category: "(ML)", index: "02", years: "3 yrs", logo: "/logos/tensorflow.svg" },
-  { name: "Keras", category: "(ML)", index: "03", years: "3 yrs", logo: "/logos/keras.svg" },
-  { name: "PyTorch", category: "(ML)", index: "04", years: "2 yrs", logo: "/logos/pytorch.svg" },
-  { name: "scikit-learn", category: "(ML)", index: "05", years: "3 yrs", logo: "/logos/scikitlearn.svg" },
-  { name: "Hugging Face", category: "(ML)", index: "06", years: "2 yrs", logo: "/logos/huggingface.svg" },
-  { name: "pandas", category: "(Data)", index: "07", years: "4 yrs", logo: "/logos/pandas.svg" },
-  { name: "NumPy", category: "(Data)", index: "08", years: "4 yrs", logo: "/logos/numpy.svg" },
-  { name: "Jupyter", category: "(Data)", index: "09", years: "4 yrs", logo: "/logos/jupyter.svg" },
-  { name: "OpenCV", category: "(Vision)", index: "10", years: "2 yrs", logo: "/logos/opencv.svg" },
-  { name: "Next.js", category: "(Web)", index: "11", years: "1 yr", logo: "/logos/nextdotjs.svg" },
-  { name: "React", category: "(Web)", index: "12", years: "2 yrs", logo: "/logos/react.svg" },
+  { name: "Python", category: "(Language)", index: "01", logo: "/logos/python.svg" },
+  { name: "TensorFlow", category: "(ML)", index: "02", logo: "/logos/tensorflow.svg" },
+  { name: "Keras", category: "(ML)", index: "03", logo: "/logos/keras.svg" },
+  { name: "PyTorch", category: "(ML)", index: "04", logo: "/logos/pytorch.svg" },
+  { name: "scikit-learn", category: "(ML)", index: "05", logo: "/logos/scikitlearn.svg" },
+  { name: "Hugging Face", category: "(ML)", index: "06", logo: "/logos/huggingface.svg" },
+  { name: "pandas", category: "(Data)", index: "07", logo: "/logos/pandas.svg" },
+  { name: "NumPy", category: "(Data)", index: "08", logo: "/logos/numpy.svg" },
+  { name: "Jupyter", category: "(Data)", index: "09", logo: "/logos/jupyter.svg" },
+  { name: "OpenCV", category: "(Vision)", index: "10", logo: "/logos/opencv.svg" },
+  { name: "Next.js", category: "(Web)", index: "11", logo: "/logos/nextdotjs.svg" },
+  { name: "React", category: "(Web)", index: "12", logo: "/logos/react.svg" },
 ];
 
 /** Timeline items (25:222) — About page only. */

@@ -19,6 +19,16 @@ export default function FitText({
   as?: "h1" | "h2" | "p" | "span";
 }) {
   const ref = useRef<HTMLElement>(null);
+  const figmaSize: Record<string, number> = {
+    prana: 530,
+    "Featured Projects": 176,
+    "About Prana": 248,
+    "The Toolkit": 279,
+    Highlights: 302,
+    "Get in touch": 257,
+  };
+  const knownSize = figmaSize[text];
+  const fallbackSize = knownSize ?? 1392 / Math.max(1, text.length * 0.9);
 
   useEffect(() => {
     const el = ref.current;
@@ -27,16 +37,8 @@ export default function FitText({
     const fit = () => {
       const width = el.clientWidth;
       if (!width) return;
-      const figmaSize: Record<string, number> = {
-        prana: 530,
-        "Featured Projects": 176,
-        "About Prana": 248,
-        "The Toolkit": 279,
-        Highlights: 302,
-        "Get in touch": 257,
-      };
-      if (figmaSize[text]) {
-        el.style.fontSize = `${figmaSize[text] * width / 1392}px`;
+      if (knownSize) {
+        el.style.fontSize = `${fallbackSize * width / 1392}px`;
         return;
       }
       const probe = document.createElement("span");
@@ -46,7 +48,7 @@ export default function FitText({
       el.appendChild(probe);
       const natural = probe.getBoundingClientRect().width;
       probe.remove();
-      if (natural) el.style.fontSize = `${(width * parseFloat(getComputedStyle(el).fontSize)) / natural}px`;
+      if (natural) el.style.fontSize = `${((width - 8) * parseFloat(getComputedStyle(el).fontSize)) / natural}px`;
     };
 
     fit();
@@ -54,11 +56,11 @@ export default function FitText({
     observer.observe(el);
     document.fonts?.ready.then(fit);
     return () => observer.disconnect();
-  }, [text]);
+  }, [text, knownSize, fallbackSize]);
 
   return (
     // Tag is a union of intrinsic elements, so the ref widens to the union.
-    <Tag ref={ref as unknown as Ref<HTMLHeadingElement>} className={`display ${className}`}>
+    <Tag ref={ref as unknown as Ref<HTMLHeadingElement>} className={`display ${className}`} style={{ fontSize: `calc(min(1392px, 100vw - 48px) * ${fallbackSize / 1392})` }}>
       {text}
     </Tag>
   );
