@@ -90,10 +90,6 @@ body {
   opacity: 0;
   will-change: transform;
 }
-@media (hover: hover) and (pointer: fine) {
-  .custom-cursor,
-  .custom-cursor * { cursor: none !important; }
-}
 @media (hover: none), (pointer: coarse) {
   .site-cursor { display: none; }
 }
@@ -101,6 +97,5 @@ body {
 :focus-visible { outline: 2px solid white; outline-offset: 5px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-cursor { display: none; }
   html { scroll-behavior: auto; }
 }

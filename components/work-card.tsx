@@ -29,11 +29,12 @@ export default function WorkCard({ project, featured = false }: { project: Proje
     return (
       <MotionLink href={`/projects/${project.slug}`} data-featured-card className="flex flex-col gap-2 overflow-hidden">
         <motion.div
+          key={interactive ? "interactive" : "static"}
           data-project-media
           className="relative aspect-[648/720] bg-surface"
           whileHover={interactive ? { scale: 1.1 } : undefined}
           animate={{ scale: 1 }}
-          transition={{ type: "spring", duration: 0.45, bounce: 0.25 }}
+          transition={interactive ? { type: "spring", duration: 0.45, bounce: 0.25 } : { duration: 0 }}
           style={{ backgroundImage: `linear-gradient(135deg, ${project.cover[0]}, ${project.cover[1]})` }}
         />
         <div className="flex items-baseline justify-between gap-4 pt-10 pb-6">
