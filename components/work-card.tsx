@@ -5,7 +5,7 @@ import { motion, useMotionValue } from "motion/react";
 import { ArrowUp } from "@/components/icons";
 import { MotionLink } from "@/components/motion";
 import type { Project } from "@/lib/content";
-import { hoverRoot, quint, tw } from "@/lib/motion";
+import { hoverRoot, tw } from "@/lib/motion";
 
 const pointerQuery = "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
 const subscribePointer = (notify: () => void) => {
@@ -46,12 +46,14 @@ export default function WorkCard({ project, featured = false }: { project: Proje
   }
 
   return (
-    <MotionLink href={`/projects/${project.slug}`} className="block" {...hoverRoot}>
-      <div onMouseMove={interactive ? move : undefined} className="relative aspect-[648/720] overflow-hidden bg-surface">
+    <MotionLink href={`/projects/${project.slug}`} className="block">
+      <motion.div onMouseMove={interactive ? move : undefined} className="relative aspect-[648/720] overflow-hidden bg-surface" {...hoverRoot}>
         <motion.div
+          key={interactive ? "interactive" : "static"}
+          data-project-media
           className="absolute inset-0"
-          variants={{ rest: { scale: 1 }, hover: { scale: interactive ? 1.04 : 1 } }}
-          transition={{ duration: 0.4, ease: quint }}
+          variants={{ rest: { scale: 1 }, hover: { scale: interactive ? 1.1 : 1 } }}
+          transition={interactive ? { type: "spring", duration: 0.45, bounce: 0.25 } : { duration: 0 }}
           style={{
             backgroundImage: `linear-gradient(135deg, ${project.cover[0]}, ${project.cover[1]})`,
           }}
@@ -72,7 +74,7 @@ export default function WorkCard({ project, featured = false }: { project: Proje
             VIEW PROJECT
           </span>
         </motion.div>
-      </div>
+      </motion.div>
 
       <div className="mt-4 flex items-baseline justify-between">
         <h3 className="text-4xl font-bold tracking-[-0.04em]">{project.title}</h3>

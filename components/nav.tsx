@@ -38,9 +38,14 @@ function Clock() {
 }
 
 /** Menu Open — Mobile 390 (Figma 19:93). */
-function MobileMenu({ onClose }: { onClose: () => void }) {
+function MobileMenu({ onClose }: { onClose: (restoreFocus?: boolean) => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const restoreFocus = useRef(true);
   const reduce = useStaticMotion();
+  const close = (shouldRestoreFocus = true) => {
+    restoreFocus.current = shouldRestoreFocus;
+    onClose(shouldRestoreFocus);
+  };
   useEffect(() => {
     const node = dialog.current!;
     const trigger = document.activeElement as HTMLElement;
@@ -53,12 +58,12 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       node.close();
       document.body.style.overflow = overflow;
       document.documentElement.classList.remove("scroll-lock");
-      trigger?.focus();
+      if (restoreFocus.current) trigger?.focus();
     };
   }, []);
 
   return (
-    <dialog ref={dialog} id="mobile-menu" aria-label="Mobile menu" aria-modal="true" onCancel={onClose} onKeyDown={(event) => {
+    <dialog ref={dialog} id="mobile-menu" aria-label="Mobile menu" aria-modal="true" onCancel={() => close()} onKeyDown={(event) => {
       if (event.key !== "Tab") return;
       const controls = [...event.currentTarget.querySelectorAll<HTMLElement>('a[href],button:not([disabled])')];
       const index = controls.indexOf(document.activeElement as HTMLElement);
@@ -68,12 +73,12 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       }
     }} className="fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none open:flex flex-col justify-between bg-bg text-fg px-4 pb-8 pt-5">
       <div className="flex items-center justify-between">
-        <Link href="/" className="text-[15px]" onClick={onClose}>
+        <Link href="/" className="text-[15px]" onClick={() => close(false)}>
           {profile.wordmark}
         </Link>
         <motion.button
           type="button"
-          onClick={onClose}
+          onClick={() => close()}
           className="text-[15px]"
           initial={{ color: textMuted.rest.color }}
           whileHover={textMuted.hover}
@@ -94,7 +99,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
           <Link
             key={item.href}
             href={item.href}
-            onClick={onClose}
+            onClick={() => close(false)}
             className="text-[64px] font-bold leading-[1] tracking-[-0.04em]"
           >
             {item.label.charAt(0) + item.label.slice(1).toLowerCase()}
@@ -115,8 +120,9 @@ export default function Nav() {
   const previousPath = useRef(pathname);
   const reduce = useStaticMotion();
   useEffect(() => {
-    if (previousPath.current === pathname) return;
+    const samePath = previousPath.current === pathname;
     previousPath.current = pathname;
+    if (samePath && document.activeElement !== document.body) return;
     const heading = document.querySelector<HTMLElement>("main h1");
     if (heading) {
       heading.tabIndex = -1;
@@ -127,22 +133,22 @@ export default function Nav() {
 
   return (
     <>
-      <header id="top" className="frame relative top-0 z-50 flex items-center justify-between py-5 md:py-[30px]">
-        <Link href="/" className="text-[15px] md:text-base">
+      <header id="top" className="frame relative top-0 z-50 grid grid-cols-[1fr_auto_auto] items-center py-5 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:py-[30px]">
+        <Link href="/" className="justify-self-start text-[15px] md:text-base">
           {profile.wordmark}
         </Link>
 
-        <nav className="hidden items-center gap-12 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-12 justify-self-center md:flex" aria-label="Primary">
           {nav.map((item) => (
             <MotionLink key={item.href} href={item.href} className="block" {...hoverRoot} whileFocus="hover">
               {/* Link roll: two stacked labels, second slides in on hover (Figma 0.35s). */}
-              <span className="relative block h-5 overflow-hidden">
-                <motion.span className="block h-5" variants={labelRoll} transition={{ duration: 0.35, ease: quint }}>
+              <span className="relative block h-5 overflow-hidden leading-5">
+                <motion.span className="block h-5 leading-5" variants={labelRoll} transition={{ duration: 0.35, ease: quint }}>
                   {item.label}
                 </motion.span>
                 <motion.span
                   aria-hidden
-                  className="absolute start-0 top-5 block h-5"
+                  className="absolute start-0 top-5 block h-5 leading-5"
                   variants={labelRoll}
                   transition={{ duration: 0.35, ease: quint }}
                 >
@@ -153,7 +159,7 @@ export default function Nav() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-1.5 text-[15px] md:text-base">
+        <div className="flex items-center gap-1.5 justify-self-end text-[15px] md:text-base">
           <span className="hidden text-muted md:inline">LOCAL /</span>
           <Clock />
         </div>
@@ -161,7 +167,7 @@ export default function Nav() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="text-[15px] md:hidden"
+          className="ml-4 text-[15px] md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-haspopup="dialog"

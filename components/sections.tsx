@@ -16,7 +16,7 @@ import {
   stats,
   tools,
 } from "@/lib/content";
-import { color, hoverRoot, rowBorder, textMuted, tw } from "@/lib/motion";
+import { color, hoverRoot, rowBorder, tw } from "@/lib/motion";
 
 const t300 = tw(300);
 const tileText = { rest: { color: color.subtle }, hover: { color: color.black } };
@@ -51,14 +51,14 @@ export function FeaturedProjects() {
       </div>
       <MotionLink
         href="/projects"
-        className="mt-14 inline-flex self-center items-center gap-4 text-4xl font-bold tracking-[-0.04em]"
-        initial={{ gap: 16, color: color.fg }}
+        className="group mt-14 inline-flex self-center items-center gap-4 text-4xl font-bold tracking-[-0.04em] text-fg transition-colors hover:text-muted focus-visible:text-muted motion-reduce:transition-none"
+        initial={{ gap: 16 }}
         whileHover={{ gap: reduce ? 16 : 24 }}
-        whileTap={{ color: color.muted }}
-        transition={{ ...t300, gap: { duration: 0 } }}
+        whileFocus={{ gap: reduce ? 16 : 24 }}
+        transition={{ duration: reduce ? 0 : 0.3, gap: { duration: reduce ? 0 : 0.3 } }}
       >
         <ArrowRight size={32} />
-        View all projects
+        <span className="group-hover:underline group-focus-visible:underline">View all projects</span>
       </MotionLink>
     </section>
   );
@@ -116,8 +116,8 @@ export function Capabilities() {
           </motion.li>
         ))}
         <li className="pt-12">
-          <MotionLink href="/about" className="text-2xl" {...hoverRoot} variants={textMuted} transition={tw(250)}>
-            Read more
+          <MotionLink href="/about" className="group text-2xl text-fg transition-colors hover:text-muted focus-visible:text-muted motion-reduce:transition-none">
+            <span className="group-hover:underline group-focus-visible:underline">Read more</span>
           </MotionLink>
         </li>
       </ul>

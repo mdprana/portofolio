@@ -10,13 +10,13 @@ export const profile = {
   // Hero intro (14:18) — muted base with white bold phrases, split so the
   // markup mirrors the Figma styled-text segments.
   intro: [
-    { text: "I turn messy data into useful products — building " },
-    { text: "machine learning models", strong: true },
-    { text: ", data pipelines, and " },
-    { text: "web experiences", strong: true },
-    { text: " that are accurate, fast, and " },
-    { text: "make a measurable impact", strong: true },
-    { text: "." },
+    { text: "I build " },
+    { text: "machine learning systems", strong: true },
+    { text: ", " },
+    { text: "data automation", strong: true },
+    { text: ", and " },
+    { text: "web applications", strong: true },
+    { text: ", from on-device mental-health screening to tools for daily operations." },
   ],
   email: "mdpranajaya@gmail.com",
   location: "Bali, Indonesia — WITA (UTC+8)",
@@ -24,14 +24,14 @@ export const profile = {
   socialLine: "LinkedIn · GitHub · Threads",
   resumeUrl: "https://drive.google.com/",
   availability:
-    "Open to full-time roles, internships, and freelance projects in data science, ML, and web. I usually reply within 24 hours.",
+    "Open to opportunities in machine learning, data science, and web development.",
   contactTitle: "Let’s talk", // Contact header (18:213)
   // About page copy — 4 paragraphs (18:112)
   paragraphs: [
-    "Hi, I’m Prana — a data scientist and ML engineer helping teams turn raw data into clear decisions and products people actually use.",
-    "I work across the stack: from cleaning messy datasets and training models, to shipping them behind fast, thoughtful web interfaces.",
-    "Whether it’s language models for local languages, forecasting, or analytics tooling, my process is iterative, grounded in evaluation, and built to last.",
-    "I believe good models aren’t just accurate. They’re explainable, reliable, and move people to make better decisions.",
+    "I’m Prana, a Computer Science graduate from Universitas Udayana with a GPA of 3.84/4.00. I work across machine learning, data automation, and full-stack development.",
+    "At BRI’s Ultra Micro Business Department, I support BRILink agent monitoring and build Google Sheets automation and Agen Inbox. At GoTo, I evaluate Balinese language model responses and GoFood search relevance.",
+    "My undergraduate thesis, Mentalys, combines on-device facial and voice emotion analysis with PHQ-9 scoring. It extends the Mentalys team capstone from Bangkit Academy in 2024.",
+    "I co-authored image-captioning research published in JNATIA in February 2025, using VGG-16 and LSTM with an average BLEU score of 0.415. I graduated with distinction from Bangkit’s Machine Learning cohort.",
   ],
 };
 
@@ -70,28 +70,28 @@ export const footerColumns = [
 ];
 
 export const stats = [
-  { value: "12+", label: "Projects shipped" },
-  { value: "3", label: "Research papers" },
-  { value: "94%", label: "Best model accuracy" },
-  { value: "2K+", label: "Monthly demo users" },
+  { value: "3.84", label: "GPA / 4.00, Universitas Udayana" },
+  { value: "146", label: "Schools in supported Bali SPMB rollout" },
+  { value: "0.415", label: "Average BLEU, JNATIA image captioning" },
+  { value: "50", label: "Top 50 of 644 Bangkit teams" },
 ];
 
 export const awards = [
   {
-    title: "1st Place — National Data Science Competition",
-    org: "Gemastik",
+    title: "Graduated with Distinction, top 10% of 1,500+",
+    org: "Bangkit Academy",
     year: "2025",
   },
   {
-    title: "Best Paper Award — Low-Resource NLP Workshop",
-    org: "IEEE ICAIIC",
-    year: "2025",
-  },
-  { title: "TensorFlow Developer Certificate", org: "Google", year: "2024" },
-  {
-    title: "Finalist — IoT Innovation Challenge",
-    org: "Bali Tech Week",
+    title: "Top 50 team of 644",
+    org: "Bangkit Academy, Batch 2",
     year: "2024",
+  },
+  { title: "Top 10 participant, Blockchain Technology Apprentice", org: "Mandala Chain Foundation", year: "2025" },
+  {
+    title: "Dev Certification for Machine Learning with TensorFlow (DCML)",
+    org: "dev.cert",
+    year: "2025",
   },
 ];
 
@@ -131,32 +131,67 @@ export const tools: Tool[] = [
 /** Timeline items (25:222) — About page only. */
 export const timeline = [
   {
-    period: "2026 — Now",
+    period: "Sep 2026–Present",
+    role: "Brilliant Internship Assistant",
+    org: "BRI, Ultra Micro Business Department",
+    description:
+      "BRILink monitoring, Google Sheets automation, and Agen Inbox workflow support for daily operations.",
+  },
+  {
+    period: "Jul 2026–Present",
     role: "Local Language Specialist Intern",
-    org: "GoTo — Data Science",
+    org: "GoTo Group, Data Science",
     description:
-      "Building evaluation sets and quality pipelines for regional-language models used across millions of users.",
+      "Balinese LLM factual/lexical/naturalness/Sor Singgih evaluation, rubric work and GoFood candidate relevance labels.",
   },
   {
-    period: "2025 — 2026",
-    role: "Machine Learning Research Assistant",
-    org: "Udayana University — AI Lab",
+    period: "May–Jul 2026",
+    role: "Engineer On-Site / IT Support",
+    org: "Metranet",
     description:
-      "Fine-tuned multilingual transformers for Balinese and Javanese text; co-authored a paper on low-resource NLP.",
+      "Bali SPMB 2026 rollout for 146 schools (89 SMA/57 SMK), Python automation and Streamlit data processing.",
   },
   {
-    period: "2024 — 2025",
-    role: "Freelance Web & IoT Developer",
-    org: "Independent",
+    period: "Mar–Jun 2025",
+    role: "Junior Data Science Intern",
+    org: "VINIX7",
     description:
-      "Shipped dashboards and sensor systems for small businesses — from hardware prototypes to production web apps.",
+      "Data preprocessing and four-person Insight-PTN team, 411 study programs/62 public universities, K-Means/recommendation/visualization.",
   },
   {
-    period: "2022 — 2026",
-    role: "B.Sc. Informatics, Data Science & ML",
-    org: "Udayana University",
+    period: "Feb–Mar 2025",
+    role: "Blockchain Technology Apprentice & Polkadot Developer Bootcamp",
+    org: "Baliola / Mandala Chain Foundation",
     description:
-      "Focused on machine learning, data engineering, and applied NLP. GPA 3.8 / 4.0.",
+      "Soulbound ERC-721 on Niskala testnet, Substrate fundamentals and TypeScript UI, Top 10 recognition.",
+  },
+  {
+    period: "Sep 2024–Jan 2025",
+    role: "Machine Learning Cohort Participant",
+    org: "Bangkit Academy",
+    description:
+      "Graduated with distinction in the top 10%; Mentalys capstone team placed in the Top 50 of 644 teams.",
+  },
+  {
+    period: "Aug–Sep 2024",
+    role: "Web Developer",
+    org: "PT Econdelight (Gecko Internet Service Provider)",
+    description:
+      "Hotel frontend HTML/CSS/JS from Figma integrated with Laravel routing/content.",
+  },
+  {
+    period: "May–Jul 2023",
+    role: "Team Leader, GEMASTIK XVI Cybersecurity Preliminary Round",
+    org: "GEMASTIK XVI",
+    description:
+      "Led preliminary-round cybersecurity participation across forensics, web, and binary exploitation.",
+  },
+  {
+    period: "Sep 2022–Jul 2026",
+    role: "Bachelor’s Degree in Computer Science",
+    org: "Universitas Udayana",
+    description:
+      "GPA 3.84/4.00.",
   },
 ];
 

@@ -7,7 +7,7 @@ import { MotionLink, RowMotion } from "@/components/motion";
 import Reveal from "@/components/reveal";
 import { ArrowSub } from "@/components/icons";
 import { capabilities, profile, timeline } from "@/lib/content";
-import { hoverRoot, rowBorder, textMuted, tw } from "@/lib/motion";
+import { hoverRoot, rowBorder, tw } from "@/lib/motion";
 
 export const metadata: Metadata = { title: "About" };
 
@@ -24,7 +24,11 @@ export default function AboutPage() {
             <div className="h-[340px] w-[310px] max-w-full shrink-0 bg-[url(/portrait.jpg)] bg-cover bg-center md:sticky md:top-24" />
 
             <div className="flex max-w-[760px] flex-col gap-10">
-              <p className="body-xl text-fg">{profile.paragraphs[0]}</p>
+              <div className="flex flex-col gap-10">
+                {profile.paragraphs.map((paragraph) => (
+                  <p key={paragraph} className="body-xl text-fg">{paragraph}</p>
+                ))}
+              </div>
 
               <span className="label">(Experience)</span>
 
@@ -38,16 +42,16 @@ export default function AboutPage() {
                       )}
                     </div>
 
-                    <Reveal delay={i * 80} className="flex-1 pt-10 pb-[72px]">
+                    <Reveal delay={i * 80} className="min-w-0 flex-1 pt-10 pb-[72px]">
                       <p className="text-base text-muted">{item.period}</p>
-                      <h3 className="mt-3 text-[40px] font-bold leading-[1.1] tracking-[-0.04em]">
+                      <h3 className="mt-3 text-[40px] font-bold leading-[1.1] tracking-[-0.04em] [overflow-wrap:anywhere]">
                         {item.role}
                       </h3>
-                      <p className="mt-3 flex items-center gap-2 text-xl text-muted">
+                      <p className="mt-3 flex min-w-0 items-center gap-2 text-xl text-muted">
                         <ArrowSub size={20} />
-                        {item.org}
+                        <span className="min-w-0 [overflow-wrap:anywhere]">{item.org}</span>
                       </p>
-                      <p className="mt-3 max-w-[696px] text-xl text-muted">
+                      <p className="mt-3 max-w-[696px] text-xl text-muted [overflow-wrap:anywhere]">
                         {item.description}
                       </p>
                     </Reveal>
@@ -84,8 +88,8 @@ export default function AboutPage() {
               </motion.li>
             ))}
             <li className="pt-12">
-              <MotionLink href="/contact" className="text-2xl" {...hoverRoot} variants={textMuted} transition={tw(250)}>
-                Read more
+              <MotionLink href="/contact" className="group text-2xl text-fg transition-colors hover:text-muted focus-visible:text-muted motion-reduce:transition-none">
+                <span className="group-hover:underline group-focus-visible:underline">Read more</span>
               </MotionLink>
             </li>
           </ul>
