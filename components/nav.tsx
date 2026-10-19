@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { MotionLink, useStaticMotion } from "@/components/motion";
@@ -116,19 +115,7 @@ function MobileMenu({ onClose }: { onClose: (restoreFocus?: boolean) => void }) 
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const previousPath = useRef(pathname);
   const reduce = useStaticMotion();
-  useEffect(() => {
-    const samePath = previousPath.current === pathname;
-    previousPath.current = pathname;
-    if (samePath && document.activeElement !== document.body) return;
-    const heading = document.querySelector<HTMLElement>("main h1");
-    if (heading) {
-      heading.tabIndex = -1;
-      heading.focus({ preventScroll: true });
-    }
-  }, [pathname]);
   const labelRoll = reduce ? { rest: { y: 0 }, hover: { y: 0 } } : roll;
 
   return (

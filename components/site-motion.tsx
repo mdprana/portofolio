@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { animate, inView, motion, useMotionValue, useSpring } from "motion/react";
 import { styleEffect } from "motion";
@@ -28,6 +28,7 @@ const subscribePointer = (notify: () => void) => {
  */
 export default function SiteMotion() {
   const pathname = usePathname();
+  const previousPath = useRef(pathname);
   const eligible = useSyncExternalStore(subscribePointer, () => matchMedia(pointerQuery).matches, () => false);
   const reduce = useSyncExternalStore(subscribeReduce, () => matchMedia(reduceQuery).matches, () => false);
   const [projectCursor, setProjectCursor] = useState(false);
@@ -38,6 +39,17 @@ export default function SiteMotion() {
   const x = useSpring(mouseX, spring);
   const y = useSpring(mouseY, spring);
   const size = useSpring(28, spring);
+
+  useEffect(() => {
+    const samePath = previousPath.current === pathname;
+    previousPath.current = pathname;
+    if (samePath) return;
+    const heading = document.querySelector<HTMLElement>("main h1");
+    if (heading) {
+      heading.tabIndex = -1;
+      heading.focus({ preventScroll: true });
+    }
+  }, [pathname]);
 
   useLayoutEffect(() => {
     const root = document.documentElement;
