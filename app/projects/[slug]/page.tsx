@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import * as motion from "motion/react-client";
 import { notFound } from "next/navigation";
 import FitText from "@/components/fit-text";
@@ -22,7 +23,7 @@ export async function generateMetadata({
   const project = projectBySlug(slug);
   return {
     title: project ? `${project.title} — ${project.type}` : "Project",
-    description: project?.caseStudy.problem,
+    description: project?.summary ?? project?.caseStudy.problem,
   };
 }
 
@@ -58,6 +59,19 @@ export default async function ProjectPage({
       <main>
         <section className="frame flex flex-col gap-8 pb-10 pt-6">
           <FitText text={project.title} as="h1" />
+          {project.summary && <p className="body-xl max-w-[900px]">{project.summary}</p>}
+          {(project.demoUrl || project.repoUrl) && (
+            <div className="flex flex-wrap gap-6">
+              {[
+                { label: "View demo", href: project.demoUrl },
+                { label: "Source code", href: project.repoUrl },
+              ].map(({ label, href }) => href && (
+                <a key={label} href={href} className="text-2xl text-fg underline transition-colors hover:text-muted focus-visible:text-muted motion-reduce:transition-none">
+                  {label}
+                </a>
+              ))}
+            </div>
+          )}
           <dl className="flex flex-wrap justify-between gap-8">
             {meta.map((key) => (
               <div key={key} className="flex flex-col gap-1.5">
@@ -73,12 +87,23 @@ export default async function ProjectPage({
         </section>
 
         <div className="frame">
-          <div
-            className="aspect-[1392/820] w-full"
-            style={{
-              backgroundImage: `linear-gradient(135deg, ${project.cover[0]}, ${project.cover[1]})`,
-            }}
-          />
+          {project.image ? (
+            <Image
+              src={project.image.src}
+              alt={project.image.alt}
+              width={project.image.width}
+              height={project.image.height}
+              sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1440px) calc(100vw - 48px), 1392px"
+              className="w-full h-auto"
+            />
+          ) : (
+            <div
+              className="aspect-[1392/820] w-full"
+              style={{
+                backgroundImage: `linear-gradient(135deg, ${project.cover[0]}, ${project.cover[1]})`,
+              }}
+            />
+          )}
         </div>
 
         <section className="frame flex flex-col gap-24 py-[120px]">
@@ -92,34 +117,38 @@ export default async function ProjectPage({
             </div>
           ))}
 
-          <div className="grid gap-6 sm:grid-cols-3">
-            {project.metrics.map((metric) => (
-              <div
-                key={metric.label}
-                className="flex flex-col gap-2 rounded-card bg-surface px-8 py-8"
-              >
-                <span className="text-[72px] md:text-[96px] font-bold leading-none tracking-[-0.05em]">
-                  {metric.value}
-                </span>
-                <span className="text-base text-muted">{metric.label}</span>
-              </div>
-            ))}
-          </div>
+          {project.metrics.length > 0 && (
+            <div className="grid gap-6 sm:grid-cols-3">
+              {project.metrics.map((metric) => (
+                <div
+                  key={metric.label}
+                  className="flex flex-col gap-2 rounded-card bg-surface px-8 py-8"
+                >
+                  <span className="text-[72px] md:text-[96px] font-bold leading-none tracking-[-0.05em]">
+                    {metric.value}
+                  </span>
+                  <span className="text-base text-muted">{metric.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
 
-        <section className="frame grid gap-6 pb-[120px] md:grid-cols-2">
-          {[0, 1].map((i) => (
-            <div
-              key={i}
-              className="aspect-[684/700] w-full"
-              style={{
-                backgroundImage: `linear-gradient(135deg, ${
-                  project.cover[i % 2]
-                }, ${project.cover[(i + 1) % 2]})`,
-              }}
-            />
-          ))}
-        </section>
+        {!project.image && (
+          <section className="frame grid gap-6 pb-[120px] md:grid-cols-2">
+            {[0, 1].map((i) => (
+              <div
+                key={i}
+                className="aspect-[684/700] w-full"
+                style={{
+                  backgroundImage: `linear-gradient(135deg, ${
+                    project.cover[i % 2]
+                  }, ${project.cover[(i + 1) % 2]})`,
+                }}
+              />
+            ))}
+          </section>
+        )}
 
         <Reveal>
           <MotionLink href={`/projects/${next.slug}`} className="frame block pb-10" {...hoverRoot}>

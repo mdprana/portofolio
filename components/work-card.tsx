@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useSyncExternalStore } from "react";
 import { motion, useMotionValue } from "motion/react";
 import { ArrowUp } from "@/components/icons";
@@ -34,10 +35,20 @@ export default function WorkCard({ project, featured = false }: { project: Proje
           className="absolute inset-0 bg-surface"
           variants={{ rest: { scale: 1 }, hover: { scale: interactive ? 1.1 : 1 } }}
           transition={interactive ? { type: "spring", duration: 0.45, bounce: 0.25 } : { duration: 0 }}
-          style={{
+          style={project.image ? undefined : {
             backgroundImage: `linear-gradient(135deg, ${project.cover[0]}, ${project.cover[1]})`,
           }}
-        />
+        >
+          {project.image && (
+            <Image
+              src={project.image.src}
+              alt={project.image.alt}
+              fill
+              sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1440px) calc((100vw - 144px) / 2), 648px"
+              className="object-contain"
+            />
+          )}
+        </motion.div>
 
         {!featured && (
           <motion.div

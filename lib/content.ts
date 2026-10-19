@@ -205,6 +205,10 @@ export type Project = {
   stack: string;
   type: string;
   cover: [string, string];
+  image?: { src: string; alt: string; width: number; height: number };
+  summary?: string;
+  repoUrl?: string;
+  demoUrl?: string;
   caseStudy: { problem: string; approach: string; result: string };
   metrics: { value: string; label: string }[];
 };
@@ -221,6 +225,36 @@ const covers: [string, string][] = [
 ];
 
 export const projects: Project[] = [
+  {
+    slug: "locus-hotel",
+    title: "Locus Hotel",
+    year: "2024",
+    tags: ["Web"],
+    featured: true,
+    role: "Frontend Developer",
+    stack: "HTML, CSS, JavaScript, PHP, Laravel, Blade, Vite",
+    type: "Hospitality Website / Demo",
+    cover: covers[1],
+    image: {
+      src: "/projects/locus-hotel.webp",
+      alt: "Locus Hotel website presentation showing desktop and mobile layouts on a forest-green background.",
+      width: 1296,
+      height: 1440,
+    },
+    summary:
+      "A responsive hotel website frontend with room browsing, gallery and editorial pages, built with HTML, CSS and JavaScript in Laravel Blade.",
+    repoUrl: "https://github.com/mdprana/Locus-Hotel",
+    demoUrl: "https://locus-hotel.vercel.app",
+    caseStudy: {
+      problem:
+        "Present hotel rooms, amenities and visual content in a consistent website layout that works across desktop and mobile screens.",
+      approach:
+        "I built the frontend with HTML, CSS and JavaScript, organized pages with Laravel Blade layouts and connected navigation through Laravel routes. The interface includes room listings, a gallery, blog and contact pages, plus arrival, departure and guest-selection controls.",
+      result:
+        "The public demo presents the responsive frontend and its supporting pages. It retains sample content, and the availability form is a visual prototype rather than a connected reservation system. No booking, payment or email-delivery integration is claimed.",
+    },
+    metrics: [],
+  },
   {
     slug: "lexa",
     title: "Lexa",
