@@ -339,7 +339,7 @@ export const projects: Project[] = [
     title: "Ledger",
     year: "2024",
     tags: ["Machine Learning"],
-    featured: true,
+    featured: false,
     role: "ML Engineer",
     stack: "Python, scikit-learn, FastAPI",
     type: "Anomaly Detection",

@@ -95,6 +95,7 @@ body {
 }
 
 :focus-visible { outline: 2px solid white; outline-offset: 5px; }
+[tabindex="-1"]:focus { outline: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
