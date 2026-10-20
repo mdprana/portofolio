@@ -206,6 +206,7 @@ export type Project = {
   type: string;
   cover: [string, string];
   image?: { src: string; alt: string; width: number; height: number };
+  gallery?: { src: string; alt: string; width: number; height: number }[];
   summary?: string;
   repoUrl?: string;
   demoUrl?: string;
@@ -241,6 +242,13 @@ export const projects: Project[] = [
       width: 1296,
       height: 1440,
     },
+    gallery: [
+      { src: "/projects/locus-hotel/home.webp", alt: "Locus Hotel home page hero: 'The Perfect Base For You' headline with Take a Tour and Learn More buttons over a dimmed photo of a wooden A-frame resort beside a pool.", width: 2880, height: 1800 },
+      { src: "/projects/locus-hotel/rooms.webp", alt: "Locus Hotel Rooms page: 'Ultimate Room' banner above three Minimal Duplex Room cards with amenity icons.", width: 2880, height: 1800 },
+      { src: "/projects/locus-hotel/gallery.webp", alt: "Locus Hotel Gallery page: 'Photo Gallery' banner above a mountain landscape photo and an aerial view of a waterfront pool deck.", width: 2880, height: 1800 },
+      { src: "/projects/locus-hotel/blog.webp", alt: "Locus Hotel Blog page: 'Blog Feeds' banner above a featured post image and a sidebar with keyword search and Popular Feeds.", width: 2880, height: 1800 },
+      { src: "/projects/locus-hotel/contact.webp", alt: "Locus Hotel Contact page: 'Contact us' banner above cards listing the office address in Badung, Bali, phone numbers and email addresses.", width: 2880, height: 1800 },
+    ],
     summary:
       "A responsive hotel website frontend with room browsing, gallery and editorial pages, built with HTML, CSS and JavaScript in Laravel Blade.",
     repoUrl: "https://github.com/mdprana/Locus-Hotel",

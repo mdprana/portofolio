@@ -46,6 +46,24 @@ export default async function ProjectPage({
     { label: "(Result)", text: project.caseStudy.result },
   ];
 
+  const shots = (list: NonNullable<typeof project.gallery>) =>
+    list.length > 0 && (
+      <section className="frame flex flex-col gap-6 md:gap-12">
+        {list.map((shot) => (
+          <Image
+            key={shot.src}
+            src={shot.src}
+            alt={shot.alt}
+            width={shot.width}
+            height={shot.height}
+            sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1440px) calc(100vw - 48px), 1392px"
+            className="h-auto w-full rounded-card"
+          />
+        ))}
+      </section>
+    );
+  const [firstShot, ...restShots] = project.gallery ?? [];
+
   const values: Record<(typeof meta)[number], string> = {
     year: project.year,
     role: project.role,
@@ -106,6 +124,8 @@ export default async function ProjectPage({
           )}
         </div>
 
+        {firstShot && <div className="pt-6 md:pt-12">{shots([firstShot])}</div>}
+
         <section className="frame flex flex-col gap-24 py-[120px]">
           {rows.map((row) => (
             <div
@@ -133,6 +153,8 @@ export default async function ProjectPage({
             </div>
           )}
         </section>
+
+        {restShots.length > 0 && <div className="pb-[120px]">{shots(restShots)}</div>}
 
         {!project.image && (
           <section className="frame grid gap-6 pb-[120px] md:grid-cols-2">
