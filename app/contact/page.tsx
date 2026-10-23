@@ -3,7 +3,7 @@ import Nav from "@/components/nav";
 import Footer, { ResumeButton } from "@/components/footer";
 import FitText from "@/components/fit-text";
 import * as motion from "motion/react-client";
-import Reveal from "@/components/reveal";
+import Reveal, { MeasuredReveal } from "@/components/reveal";
 import { HoverArrow } from "@/components/motion";
 import { ArrowRight } from "@/components/icons";
 import { footerColumns, profile } from "@/lib/content";
@@ -39,28 +39,30 @@ export default function ContactPage() {
             <div><ResumeButton /></div>
           </Reveal>
 
-          <Reveal delay={80} className="flex flex-col">
+          <div className="flex flex-col">
             <ul className="mt-6 w-full max-w-[980px] md:ml-auto">
               {rows.map((row) => (
                 <li key={row.label} className="border-b border-line">
-                  <motion.a
-                    href={row.href}
-                    className="flex items-center justify-between gap-6 py-7"
-                    {...hoverRoot}
-                    variants={textMuted}
-                    transition={tw(300)}
-                  >
-                    <span className="text-[clamp(32px,4.5vw,56px)] font-bold leading-none tracking-[-0.04em]">
-                      {row.label}
-                    </span>
-                    <HoverArrow>
-                      <ArrowRight size={40} className="block" />
-                    </HoverArrow>
-                  </motion.a>
+                  <MeasuredReveal family="tween">
+                    <motion.a
+                      href={row.href}
+                      className="flex items-center justify-between gap-6 py-7"
+                      {...hoverRoot}
+                      variants={textMuted}
+                      transition={tw(300)}
+                    >
+                      <span className="text-[clamp(32px,4.5vw,56px)] font-bold leading-none tracking-[-0.04em]">
+                        {row.label}
+                      </span>
+                      <HoverArrow>
+                        <ArrowRight size={40} className="block" />
+                      </HoverArrow>
+                    </motion.a>
+                  </MeasuredReveal>
                 </li>
               ))}
             </ul>
-          </Reveal>
+          </div>
         </section>
       </main>
       <Footer />

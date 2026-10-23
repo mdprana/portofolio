@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import * as motion from "motion/react-client";
 import FitText from "@/components/fit-text";
 import Footer from "@/components/footer";
+import HeroImage from "@/components/hero-image";
 import Nav from "@/components/nav";
 import { MotionLink, RowMotion } from "@/components/motion";
 import Reveal from "@/components/reveal";
@@ -21,7 +22,7 @@ export default function AboutPage() {
           <FitText text="About Prana" as="h1" />
 
           <div className="flex flex-col gap-12 md:flex-row md:gap-16">
-            <div className="h-[340px] w-[310px] max-w-full shrink-0 bg-[url(/portrait.jpg)] bg-cover bg-center md:sticky md:top-24" />
+            <HeroImage src="/portrait.jpg" mobileStatic={false} scope="about-image" className="h-[340px] w-[310px] max-w-full shrink-0 md:sticky md:top-24" />
 
             <div className="flex max-w-[760px] flex-col gap-10">
               <div className="flex flex-col gap-10">

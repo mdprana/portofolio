@@ -6,7 +6,7 @@ import FitText from "@/components/fit-text";
 import Footer from "@/components/footer";
 import Nav from "@/components/nav";
 import { MotionLink } from "@/components/motion";
-import Reveal from "@/components/reveal";
+import { MeasuredReveal } from "@/components/reveal";
 import { nextProject, projectBySlug, projects } from "@/lib/content";
 import { hoverRoot, textMuted, tw } from "@/lib/motion";
 
@@ -76,7 +76,9 @@ export default async function ProjectPage({
       <Nav />
       <main>
         <section className="frame flex flex-col gap-8 pb-10 pt-6">
-          <FitText text={project.title} as="h1" />
+          <MeasuredReveal family="tween">
+            <FitText text={project.title} as="h1" />
+          </MeasuredReveal>
           {project.summary && <p className="body-xl max-w-[900px]">{project.summary}</p>}
           {(project.demoUrl || project.repoUrl) && (
             <div className="flex flex-wrap gap-6">
@@ -90,18 +92,20 @@ export default async function ProjectPage({
               ))}
             </div>
           )}
-          <dl className="flex flex-wrap justify-between gap-8">
-            {meta.map((key) => (
-              <div key={key} className="flex flex-col gap-1.5">
-                <dt className="label">
-                  {`(${key[0].toUpperCase()}${key.slice(1)})`}
-                </dt>
-                <dd className="text-2xl font-bold tracking-[-0.03em]">
-                  {values[key]}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <MeasuredReveal family="tween">
+            <dl className="flex flex-wrap justify-between gap-8">
+              {meta.map((key) => (
+                <div key={key} className="flex flex-col gap-1.5">
+                  <dt className="label">
+                    {`(${key[0].toUpperCase()}${key.slice(1)})`}
+                  </dt>
+                  <dd className="text-2xl font-bold tracking-[-0.03em]">
+                    {values[key]}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </MeasuredReveal>
         </section>
 
         <div className="frame">
@@ -172,14 +176,14 @@ export default async function ProjectPage({
           </section>
         )}
 
-        <Reveal>
+        <MeasuredReveal family="tween">
           <MotionLink href={`/projects/${next.slug}`} className="frame block pb-10" {...hoverRoot}>
             <span className="label">(Next project)</span>
             <motion.div variants={textMuted} transition={tw(300)}>
               <FitText text={`${next.title} →`} as="p" className="mt-4" />
             </motion.div>
           </MotionLink>
-        </Reveal>
+        </MeasuredReveal>
       </main>
       <Footer />
     </>
