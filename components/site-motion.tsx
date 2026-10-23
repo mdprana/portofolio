@@ -131,7 +131,9 @@ export default function SiteMotion() {
     const tick = (now: number) => {
       const dt = Math.min(48, now - (last || now));
       last = now;
-      const next = scrollY + (target - scrollY) * (1 - Math.exp(-dt / 150));
+      const gap = target - scrollY;
+      let next = scrollY + gap * (1 - Math.exp(-dt / 150));
+      if (Math.abs(next - scrollY) < 1) next = Math.abs(gap) <= 1 ? target : scrollY + Math.sign(gap);
       window.scrollTo({ top: Math.abs(target - next) < 1 ? target : next, behavior: "instant" });
       if (Math.abs(target - scrollY) < 1) scrolling = false;
       if (scrolling) frame = requestAnimationFrame(tick);
