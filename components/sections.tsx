@@ -5,7 +5,7 @@ import FitText from "@/components/fit-text";
 import HeroImage from "@/components/hero-image";
 import Marquee from "@/components/marquee";
 import { MotionLink, RowMotion, useStaticMotion } from "@/components/motion";
-import Reveal from "@/components/reveal";
+import Reveal, { HeroLoad, MeasuredReveal } from "@/components/reveal";
 import WorkCard from "@/components/work-card";
 import { ArrowRight, ArrowSub } from "@/components/icons";
 import {
@@ -25,14 +25,16 @@ const tileText = { rest: { color: color.subtle }, hover: { color: color.black } 
 export function Hero() {
   return (
     <section className="frame flex flex-col gap-6 pb-2">
-      <FitText text={profile.headline} as="h1" className="text-fg" />
-      <div className="pb-8">
+      <HeroLoad>
+        <FitText text={profile.headline} as="h1" className="text-fg" />
+      </HeroLoad>
+      <HeroLoad copy className="pb-8">
         <p className="body-xl ml-auto max-w-[980px] text-muted">
           {profile.intro.map((part) =>
             part.strong ? <strong key={part.text} className="text-fg">{part.text}</strong> : part.text,
           )}
         </p>
-      </div>
+      </HeroLoad>
       <HeroImage />
     </section>
   );
@@ -44,9 +46,11 @@ export function FeaturedProjects() {
   return (
     <section className="frame flex flex-col gap-9 pt-6 pb-8">
       <FitText text="Featured Projects" />
-      <div className="grid gap-[72px] md:grid-cols-2 md:gap-x-24">
+      <div data-motion-scope className="grid gap-[72px] md:grid-cols-2 md:gap-x-24">
         {homeProjects.map((project) => (
-          <WorkCard key={project.slug} project={project} featured />
+          <MeasuredReveal key={project.slug}>
+            <WorkCard project={project} featured />
+          </MeasuredReveal>
         ))}
       </div>
       <MotionLink

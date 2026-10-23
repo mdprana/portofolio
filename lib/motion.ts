@@ -5,6 +5,21 @@
 
 export const quint = [0.22, 1, 0.36, 1] as const;
 
+export const heroSpring = { type: "spring", stiffness: 200, damping: 40, mass: 1 } as const;
+export const revealPresets = {
+  spring: {
+    hidden: { opacity: 0, y: 30 },
+    transition: { type: "spring", stiffness: 180, damping: 40, mass: 1, delay: 0 },
+    viewport: { amount: 0.5, once: true },
+  },
+  tween: {
+    hidden: { opacity: 0, y: 160 },
+    transition: { type: "tween", duration: 1.4, delay: 0, ease: [0, 0.56, 0.26, 0.97] },
+    viewport: { amount: 0, once: true },
+  },
+} as const;
+export const revealFinal = { opacity: 1, y: 0 };
+
 /** Tailwind's default `transition-*` curve, which the hover states used. */
 export const tw = (ms: number) => ({ duration: ms / 1000, ease: [0.4, 0, 0.2, 1] as const });
 

@@ -1,8 +1,49 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useAnimationControls } from "motion/react";
+import { useLayoutEffect } from "react";
 import { useStaticMotion } from "@/components/motion";
-import { quint } from "@/lib/motion";
+import { heroSpring, quint, revealFinal, revealPresets } from "@/lib/motion";
+
+export function HeroLoad({ children, copy = false, className }: { children: React.ReactNode; copy?: boolean; className?: string }) {
+  const reduce = useStaticMotion();
+  const controls = useAnimationControls();
+  useLayoutEffect(() => {
+    if (reduce) {
+      controls.stop();
+      controls.set(revealFinal);
+    }
+    else void controls.start({ ...revealFinal, transition: { ...heroSpring, delay: copy ? 0.2 : 0 } });
+  }, [controls, copy, reduce]);
+  return (
+    <motion.div
+      data-motion-load={copy ? "copy" : "title"}
+      className={className}
+      initial={{ opacity: 0.001, y: copy ? 30 : -400 }}
+      animate={controls}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function MeasuredReveal({ children, family = "spring", className }: { children: React.ReactNode; family?: keyof typeof revealPresets; className?: string }) {
+  const reduce = useStaticMotion();
+  const preset = revealPresets[family];
+  return (
+    <motion.div
+      data-reveal={family}
+      className={className}
+      initial={preset.hidden}
+      animate={reduce ? revealFinal : undefined}
+      whileInView={revealFinal}
+      viewport={preset.viewport}
+      transition={reduce ? { duration: 0, delay: 0 } : preset.transition}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 /** Fades up while in view, hides again on exit (Figma Timeline/tile reveal). */
 export default function Reveal({

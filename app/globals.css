@@ -103,4 +103,8 @@ h1, h2, h3, h4, h5, h6, .display {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  [data-motion-load], [data-reveal="spring"], [data-reveal="tween"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

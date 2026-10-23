@@ -60,7 +60,7 @@ export default function SiteMotion() {
       ? []
       : [...document.querySelectorAll<HTMLElement>(
           "main section > .display, main section > div, main section > ul, footer > .display, footer > div",
-        )].filter(node => !node.hasAttribute("data-reveal"));
+        )].filter(node => !node.closest("[data-reveal], [data-motion-load], [data-motion-scope]") && !node.querySelector('[data-reveal="spring"], [data-reveal="tween"], [data-motion-load]'));
     let revealActive = true;
     const reveals = nodes.map(node => animate(node, { opacity: 0, y: 36 }, { duration: 0.22, ease: quint }));
     const stopReveal = nodes.length ? inView(
