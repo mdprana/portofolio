@@ -23,7 +23,14 @@ export function HoverArrow({ children }: { children: React.ReactNode }) {
   return <motion.span className="shrink-0" variants={{ rest: { x: 0 }, hover: { x: reduce ? 0 : 8 } }} transition={{ duration: reduce ? 0 : 0.3 }}>{children}</motion.span>;
 }
 
+const subscribeHover = (notify: () => void) => {
+  const query = matchMedia("(hover: hover) and (pointer: fine)");
+  query.addEventListener("change", notify);
+  return () => query.removeEventListener("change", notify);
+};
+
 export function RowMotion({ children, className }: { children: React.ReactNode; className?: string }) {
   const reduce = useStaticMotion();
-  return <motion.span className={className} variants={{ rest: { gap: 24 }, hover: { gap: reduce ? 24 : 36 } }} transition={{ duration: reduce ? 0 : 0.3 }}>{children}</motion.span>;
+  const hover = useSyncExternalStore(subscribeHover, () => matchMedia("(hover: hover) and (pointer: fine)").matches, () => false);
+  return <motion.span className={className} variants={{ rest: { gap: "24px" }, hover: { gap: !reduce && hover ? "36px" : "24px" } }} transition={{ duration: reduce ? 0 : 0.3 }}>{children}</motion.span>;
 }

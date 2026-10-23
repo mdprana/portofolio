@@ -91,14 +91,15 @@ export function About() {
 export function Capabilities() {
   return (
     <section className="frame flex flex-col gap-12 pb-[120px] md:flex-row md:justify-between">
-      <div className="flex flex-col gap-3">
+      <MeasuredReveal family="tween" className="flex flex-col gap-3">
         <span className="label">(Capabilities)</span>
         <p className="text-[45px] font-bold leading-none tracking-[-0.04em]">
           What I do
         </p>
-      </div>
+      </MeasuredReveal>
 
-      <ul className="w-full max-w-[750px]">
+      <MeasuredReveal family="tween" className="w-full max-w-[750px]">
+      <ul>
         {capabilities.map((item) => (
           <motion.li
             key={item.label}
@@ -125,6 +126,7 @@ export function Capabilities() {
           </MotionLink>
         </li>
       </ul>
+      </MeasuredReveal>
     </section>
   );
 }
