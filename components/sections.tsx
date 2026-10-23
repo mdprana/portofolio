@@ -35,7 +35,7 @@ export function Hero() {
           )}
         </p>
       </HeroLoad>
-      <HeroImage />
+      <HeroImage scrollLinked />
     </section>
   );
 }
@@ -49,7 +49,7 @@ export function FeaturedProjects() {
       <div data-motion-scope className="grid gap-[72px] md:grid-cols-2 md:gap-x-24">
         {homeProjects.map((project) => (
           <MeasuredReveal key={project.slug}>
-            <WorkCard project={project} featured />
+            <WorkCard project={project} />
           </MeasuredReveal>
         ))}
       </div>

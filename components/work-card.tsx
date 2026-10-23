@@ -2,11 +2,10 @@
 
 import Image from "next/image";
 import { useSyncExternalStore } from "react";
-import { motion, useMotionValue } from "motion/react";
-import { ArrowUp } from "@/components/icons";
+import { motion } from "motion/react";
 import { MotionLink } from "@/components/motion";
 import type { Project } from "@/lib/content";
-import { hoverRoot, tw } from "@/lib/motion";
+import { hoverRoot } from "@/lib/motion";
 
 const pointerQuery = "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
 const subscribePointer = (notify: () => void) => {
@@ -15,20 +14,12 @@ const subscribePointer = (notify: () => void) => {
   return () => query.removeEventListener("change", notify);
 };
 
-export default function WorkCard({ project, featured = false }: { project: Project; featured?: boolean }) {
+export default function WorkCard({ project }: { project: Project }) {
   const interactive = useSyncExternalStore(subscribePointer, () => matchMedia(pointerQuery).matches, () => false);
-  const left = useMotionValue(0);
-  const top = useMotionValue(0);
-
-  const move = (e: React.MouseEvent<HTMLDivElement>) => {
-    const box = e.currentTarget.getBoundingClientRect();
-    left.set(e.clientX - box.left);
-    top.set(e.clientY - box.top);
-  };
 
   return (
-    <MotionLink href={`/projects/${project.slug}`} data-featured-card={featured ? true : undefined} className="flex flex-col gap-2 overflow-hidden">
-      <motion.div onMouseMove={!featured && interactive ? move : undefined} className="relative aspect-[648/720]" {...hoverRoot}>
+    <MotionLink href={`/projects/${project.slug}`} data-featured-card className="flex flex-col gap-2 overflow-hidden">
+      <motion.div className="relative aspect-[648/720]" {...hoverRoot}>
         <motion.div
           key={interactive ? "interactive" : "static"}
           data-project-media
@@ -49,23 +40,6 @@ export default function WorkCard({ project, featured = false }: { project: Proje
             />
           )}
         </motion.div>
-
-        {!featured && (
-          <motion.div
-            aria-hidden
-            className="pointer-events-none absolute z-10 flex items-center"
-            style={{ left, top, x: 12, y: "-50%" }}
-            variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
-            transition={tw(300)}
-          >
-            <span className="flex size-12 items-center justify-center rounded-pill bg-fg text-bg">
-              <ArrowUp className="rotate-45" size={22} />
-            </span>
-            <span className="-ml-2 flex h-12 items-center rounded-pill bg-black/55 px-[22px] text-sm tracking-[0.02em] text-fg backdrop-blur-[12px]">
-              VIEW PROJECT
-            </span>
-          </motion.div>
-        )}
       </motion.div>
 
       <div className="flex items-baseline justify-between gap-4 pt-10 pb-6">

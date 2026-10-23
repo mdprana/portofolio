@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { animate, inView, motion, useMotionValue } from "motion/react";
+import { animate, inView, motion, useMotionValue, useScroll, useTransform } from "motion/react";
 
 const HERO = "/hero.png";
 
@@ -10,16 +10,22 @@ export default function HeroImage({
   className = "aspect-[1392/786] w-full",
   mobileStatic = true,
   scope = "hero-image",
+  scrollLinked = false,
 }: {
   src?: string;
   className?: string;
   mobileStatic?: boolean;
   scope?: string;
+  scrollLinked?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const scale = useMotionValue(1);
+  const springScale = useMotionValue(1);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
+  const scrollScale = useTransform(scrollYProgress, [0, 1], [1.25, 1]);
+  const scale = scrollLinked ? scrollScale : springScale;
 
   useLayoutEffect(() => {
+    if (scrollLinked) return;
     const mobile = mobileStatic ? matchMedia("(max-width: 809.98px)") : null;
     const reduce = matchMedia("(prefers-reduced-motion: reduce)");
     let animation: ReturnType<typeof animate> | undefined;
@@ -27,12 +33,12 @@ export default function HeroImage({
     const settle = () => {
       stop();
       animation?.stop();
-      scale.jump(1);
+      springScale.jump(1);
     };
     if (!mobile?.matches && !reduce.matches && ref.current) {
-      scale.set(1.25);
+      springScale.set(1.25);
       stop = inView(ref.current, () => {
-        animation = animate(scale, 1, { type: "spring", stiffness: 400, damping: 60, mass: 1, delay: 0 });
+        animation = animate(springScale, 1, { type: "spring", stiffness: 400, damping: 60, mass: 1, delay: 0 });
       });
     }
     mobile?.addEventListener("change", settle);
@@ -42,7 +48,7 @@ export default function HeroImage({
       reduce.removeEventListener("change", settle);
       settle();
     };
-  }, [scale, mobileStatic]);
+  }, [springScale, mobileStatic, scrollLinked]);
 
   return (
     <div ref={ref} data-motion-scope={scope} className={`${className} overflow-hidden bg-surface`}>
