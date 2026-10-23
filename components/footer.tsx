@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 
 import FitText from "@/components/fit-text";
+import { MeasuredReveal } from "@/components/reveal";
 import {
   ArrowUp,
   Download,
@@ -57,9 +58,11 @@ export function ResumeButton() {
 export default function Footer() {
   return (
     <footer className="frame flex flex-col gap-2 pb-8 pt-6">
-      <a href={`mailto:${profile.email}`} aria-label="Get in touch by email"><FitText text="Get in touch" as="p" /></a>
+      <MeasuredReveal>
+        <a href={`mailto:${profile.email}`} aria-label="Get in touch by email"><FitText text="Get in touch" as="p" /></a>
+      </MeasuredReveal>
 
-      <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+      <MeasuredReveal className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
         <p className="body-xl max-w-[760px] text-muted">
           Have a project, role, or dataset in mind? Let’s talk.
         </p>
@@ -67,9 +70,9 @@ export default function Footer() {
           <MotionLink href={`mailto:${profile.email}`} {...hoverRoot} whileFocus="hover" variants={textMuted} transition={tw(250)}>Say Hello</MotionLink>
           <MotionLink href={`mailto:${profile.email}`} className="[overflow-wrap:anywhere]" {...hoverRoot} whileFocus="hover" variants={textMuted} transition={tw(250)}>{profile.email}</MotionLink>
         </div>
-      </div>
+      </MeasuredReveal>
 
-      <div className="mt-[72px] grid grid-cols-2 items-start gap-10 min-[1440px]:grid-cols-[1.5fr_1fr_1fr_auto]">
+      <MeasuredReveal className="mt-[72px] grid grid-cols-2 items-start gap-10 min-[1440px]:grid-cols-[1.5fr_1fr_1fr_auto]">
         <p className="col-span-2 text-[80px] font-bold leading-[0.8] tracking-[-0.04em] min-[1440px]:col-span-1">
           {profile.wordmark}
         </p>
@@ -100,7 +103,7 @@ export default function Footer() {
             Back to Top
             <ArrowUp />
           </MotionLink>
-      </div>
+      </MeasuredReveal>
     </footer>
   );
 }

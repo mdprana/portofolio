@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { motion, useAnimationControls } from "motion/react";
 import { MotionLink, useStaticMotion } from "@/components/motion";
 import { nav, profile } from "@/lib/content";
-import { hoverRoot, quint, textMuted, tw } from "@/lib/motion";
+import { heroSpring, hoverRoot, quint, textMuted, tw } from "@/lib/motion";
 
 const roll = { rest: { y: 0 }, hover: { y: -20 } };
 
@@ -117,6 +117,14 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const reduce = useStaticMotion();
   const labelRoll = reduce ? { rest: { y: 0 }, hover: { y: 0 } } : roll;
+  const controls = useAnimationControls();
+  useLayoutEffect(() => {
+    if (reduce) {
+      controls.stop();
+      controls.set({ opacity: 1, y: 0 });
+    } else void controls.start({ y: 0, transition: { ...heroSpring, delay: 0.4 } });
+    return () => controls.stop();
+  }, [controls, reduce]);
 
   return (
     <>
@@ -125,7 +133,13 @@ export default function Nav() {
           {profile.wordmark}
         </Link>
 
-        <nav className="hidden items-center gap-12 justify-self-center md:flex" aria-label="Primary">
+        <motion.nav
+          data-motion-load="navigation"
+          className="hidden items-center gap-12 justify-self-center md:flex"
+          aria-label="Primary"
+          initial={{ opacity: 1, y: -160, scale: 1, transformPerspective: 1200 }}
+          animate={controls}
+        >
           {nav.map((item) => (
             <MotionLink key={item.href} href={item.href} className="block" {...hoverRoot} whileFocus="hover">
               {/* Link roll: two stacked labels, second slides in on hover (Figma 0.35s). */}
@@ -144,7 +158,7 @@ export default function Nav() {
               </span>
             </MotionLink>
           ))}
-        </nav>
+        </motion.nav>
 
         <div className="flex items-center gap-1.5 justify-self-end text-[15px] md:text-base">
           <span className="hidden text-muted md:inline">LOCAL /</span>

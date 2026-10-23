@@ -30,12 +30,19 @@ export function HeroLoad({ children, copy = false, className }: { children: Reac
 export function MeasuredReveal({ children, family = "spring", className }: { children: React.ReactNode; family?: keyof typeof revealPresets; className?: string }) {
   const reduce = useStaticMotion();
   const preset = revealPresets[family];
+  const controls = useAnimationControls();
+  useLayoutEffect(() => {
+    if (!reduce) return;
+    controls.stop();
+    controls.set(revealFinal);
+    return () => controls.stop();
+  }, [controls, reduce]);
   return (
     <motion.div
       data-reveal={family}
       className={className}
       initial={preset.hidden}
-      animate={reduce ? revealFinal : undefined}
+      animate={controls}
       whileInView={revealFinal}
       viewport={preset.viewport}
       transition={reduce ? { duration: 0, delay: 0 } : preset.transition}
