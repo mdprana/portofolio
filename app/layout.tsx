@@ -4,9 +4,9 @@ import "./globals.css";
 import { MotionProvider } from "@/components/motion";
 import SiteMotion from "@/components/site-motion";
 
-// Figma asks for Inter Display; Inter is the closest available web family.
 const inter = Inter({
   subsets: ["latin"],
+  axes: ["opsz"],
   display: "swap",
   variable: "--font-inter",
 });
