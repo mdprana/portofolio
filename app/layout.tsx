@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { MotionProvider } from "@/components/motion";
 import SiteMotion from "@/components/site-motion";
 
-const inter = Inter({
-  subsets: ["latin"],
-  axes: ["opsz"],
+const inter = localFont({
+  src: [
+    { path: "./fonts/InterDisplay-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/InterDisplay-Medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/InterDisplay-Bold.woff2", weight: "700", style: "normal" },
+  ],
   display: "swap",
   variable: "--font-inter",
 });
