@@ -7,7 +7,7 @@ import Nav from "@/components/nav";
 import { MotionLink, RowMotion } from "@/components/motion";
 import Reveal from "@/components/reveal";
 import { ArrowSub } from "@/components/icons";
-import { capabilities, profile, timeline } from "@/lib/content";
+import { capabilities, profile, publication, timeline } from "@/lib/content";
 import { hoverRoot, rowBorder, tw } from "@/lib/motion";
 
 export const metadata: Metadata = { title: "About" };
@@ -59,6 +59,24 @@ export default function AboutPage() {
                   </li>
                 ))}
               </ol>
+
+              <span className="label">(Publication)</span>
+
+              <Reveal>
+                <h3 className="text-[40px] font-bold leading-[1.1] tracking-[-0.04em] [overflow-wrap:anywhere]">
+                  <a href={publication.url} target="_blank" rel="noopener noreferrer" className="hover:underline focus-visible:underline">
+                    {publication.title}
+                  </a>
+                </h3>
+                <p className="mt-3 text-xl text-muted">{publication.authors}</p>
+                <p className="mt-3 text-xl text-muted">{publication.journal}, {publication.year}</p>
+                <p className="mt-3 text-xl text-muted [overflow-wrap:anywhere]">
+                  DOI:{" "}
+                  <a href={publication.doiUrl} target="_blank" rel="noopener noreferrer" className="hover:underline focus-visible:underline">
+                    {publication.doi}
+                  </a>
+                </p>
+              </Reveal>
             </div>
           </div>
         </section>

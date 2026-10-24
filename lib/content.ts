@@ -29,9 +29,10 @@ export const profile = {
   // About page copy — 4 paragraphs (18:112)
   paragraphs: [
     "I’m Prana, a Computer Science graduate from Universitas Udayana with a GPA of 3.84/4.00. I work across machine learning, data automation, and full-stack development.",
-    "At BRI’s Ultra Micro Business Department, I support BRILink agent monitoring and build Google Sheets automation and Agen Inbox. At GoTo, I evaluate Balinese language model responses and GoFood search relevance.",
-    "My undergraduate thesis, Mentalys, combines on-device facial and voice emotion analysis with PHQ-9 scoring. It extends the Mentalys team capstone from Bangkit Academy in 2024.",
-    "I co-authored image-captioning research published in JNATIA in February 2025, using VGG-16 and LSTM with an average BLEU score of 0.415. I graduated with distinction from Bangkit’s Machine Learning cohort.",
+    "I am a Brilliant Internship Assistant in the Ultra Micro Business Department of PT Bank Rakyat Indonesia (Persero) Tbk, where I support BRILink agent monitoring and build Google Sheets automation and Agen Inbox. I am also a Local Language Specialist Intern on the Data Science team at PT GoTo Gojek Tokopedia Tbk, evaluating Balinese language model responses and GoFood search relevance.",
+    "Before that, I supported the Bali SPMB 2026 rollout for 146 schools at PT Metra-Net (Metranet), a subsidiary of PT Telkom Indonesia (Persero) Tbk, and worked as a Junior Data Science Intern at PT Vinix Seven Aurum (VINIX7).",
+    "My undergraduate thesis, Mentalys, combines on-device facial and voice emotion analysis with PHQ-9 scoring. It extends the Mentalys team capstone from Bangkit Academy led by Google, GoTo, and Traveloka in 2024, where I graduated with distinction in the Machine Learning cohort.",
+    "I co-authored image-captioning research published in JNATIA (Jurnal Nasional Teknologi Informasi dan Aplikasinya) in February 2025, using VGG-16 and LSTM on the Flickr8k dataset with an average BLEU score of 0.415.",
   ],
 };
 
@@ -76,15 +77,17 @@ export const stats = [
   { value: "50", label: "Top 50 of 644 Bangkit teams" },
 ];
 
-export const awards = [
+export type Award = { title: string; org: string; year: string; href?: string };
+
+export const awards: Award[] = [
   {
     title: "Graduated with Distinction, top 10% of 1,500+",
-    org: "Bangkit Academy",
+    org: "Bangkit Academy led by Google, GoTo, and Traveloka",
     year: "2025",
   },
   {
     title: "Top 50 team of 644",
-    org: "Bangkit Academy, Batch 2",
+    org: "Bangkit Academy led by Google, GoTo, and Traveloka, Batch 2",
     year: "2024",
   },
   { title: "Top 10 participant, Blockchain Technology Apprentice", org: "Mandala Chain Foundation", year: "2025" },
@@ -92,8 +95,21 @@ export const awards = [
     title: "Dev Certification for Machine Learning with TensorFlow (DCML)",
     org: "dev.cert",
     year: "2025",
+    href: "https://dev.id/certificate/verify/R1VGRY7W2M",
   },
 ];
+
+export const certificationsUrl = "https://www.linkedin.com/in/mdprana/details/certifications/";
+
+export const publication = {
+  title: "Implementasi Ekstraksi Fitur VGG-16 dan Pemodelan LSTM untuk Pembangkitan Caption Gambar Otomatis",
+  authors: "Made Pranajaya Dibyacita, Luh Gede Astuti",
+  journal: "JNATIA Vol. 3, No. 2, pp. 447–458",
+  year: "2025",
+  url: "https://ejournal2.unud.ac.id/index.php/jnatia/id/article/view/1478",
+  doi: "10.24843/JNATIA.2025.v03.i02.p25",
+  doiUrl: "https://doi.org/10.24843/JNATIA.2025.v03.i02.p25",
+};
 
 /** Home capability rows (16:12) — label colours alternate white / #5A5A5A. */
 export const capabilities = [
@@ -133,28 +149,28 @@ export const timeline = [
   {
     period: "Sep 2026–Present",
     role: "Brilliant Internship Assistant",
-    org: "BRI, Ultra Micro Business Department",
+    org: "PT Bank Rakyat Indonesia (Persero) Tbk, Ultra Micro Business Department",
     description:
       "BRILink monitoring, Google Sheets automation, and Agen Inbox workflow support for daily operations.",
   },
   {
     period: "Jul 2026–Present",
     role: "Local Language Specialist Intern",
-    org: "GoTo Group, Data Science",
+    org: "PT GoTo Gojek Tokopedia Tbk, Data Science",
     description:
       "Balinese LLM factual/lexical/naturalness/Sor Singgih evaluation, rubric work and GoFood candidate relevance labels.",
   },
   {
     period: "May–Jul 2026",
     role: "Engineer On-Site / IT Support",
-    org: "Metranet",
+    org: "PT Metra-Net (Metranet), subsidiary of PT Telkom Indonesia (Persero) Tbk",
     description:
       "Bali SPMB 2026 rollout for 146 schools (89 SMA/57 SMK), Python automation and Streamlit data processing.",
   },
   {
     period: "Mar–Jun 2025",
     role: "Junior Data Science Intern",
-    org: "VINIX7",
+    org: "PT Vinix Seven Aurum (VINIX7)",
     description:
       "Data preprocessing and four-person Insight-PTN team, 411 study programs/62 public universities, K-Means/recommendation/visualization.",
   },
@@ -168,7 +184,7 @@ export const timeline = [
   {
     period: "Sep 2024–Jan 2025",
     role: "Machine Learning Cohort Participant",
-    org: "Bangkit Academy",
+    org: "Bangkit Academy led by Google, GoTo, and Traveloka",
     description:
       "Graduated with distinction in the top 10%; Mentalys capstone team placed in the Top 50 of 644 teams.",
   },
@@ -182,7 +198,7 @@ export const timeline = [
   {
     period: "May–Jul 2023",
     role: "Team Leader, GEMASTIK XVI Cybersecurity Preliminary Round",
-    org: "GEMASTIK XVI",
+    org: "GEMASTIK XVI (Pagelaran Mahasiswa Nasional Bidang TIK)",
     description:
       "Led preliminary-round cybersecurity participation across forensics, web, and binary exploitation.",
   },

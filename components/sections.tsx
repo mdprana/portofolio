@@ -11,8 +11,10 @@ import { ArrowRight, ArrowSub } from "@/components/icons";
 import {
   awards,
   capabilities,
+  certificationsUrl,
   homeProjects,
   profile,
+  publication,
   stats,
   tools,
 } from "@/lib/content";
@@ -215,6 +217,20 @@ export function TechStack() {
   );
 }
 
+const external = { target: "_blank", rel: "noopener noreferrer" } as const;
+const rowClass = "flex flex-col gap-2 border-b border-line py-7 md:flex-row md:items-center md:gap-6";
+
+function RowContent({ title, org, year }: { title: string; org: string; year: string }) {
+  return (
+    <>
+      <ArrowSub size={24} className="shrink-0 text-fg" />
+      <span className="flex-1 text-4xl font-bold tracking-[-0.04em]">{title}</span>
+      <span className="text-base text-muted md:w-[200px]">{org}</span>
+      <span className="text-base text-muted">{year}</span>
+    </>
+  );
+}
+
 /* Highlights (16:45) — gap 56, stats gap 24 (no card fill), awards pad-top 40. */
 export function Highlights() {
   return (
@@ -234,22 +250,31 @@ export function Highlights() {
 
       <div className="flex flex-col pt-10">
         <span className="label mb-5">(Awards &amp; Certifications)</span>
-        {awards.map((award) => (
-          <motion.div
-            key={award.title}
-            className="flex flex-col gap-2 border-b border-line py-7 md:flex-row md:items-center md:gap-6"
-            {...hoverRoot}
-            variants={rowBorder}
-            transition={t300}
-          >
-            <ArrowSub size={24} className="shrink-0 text-fg" />
-            <span className="flex-1 text-4xl font-bold tracking-[-0.04em]">
-              {award.title}
-            </span>
-            <span className="text-base text-muted md:w-[200px]">{award.org}</span>
-            <span className="text-base text-muted">{award.year}</span>
-          </motion.div>
-        ))}
+        {awards.map((award) => {
+          const Row = award.href ? motion.a : motion.div;
+          const link = award.href ? { href: award.href, ...external } : {};
+          return (
+            <Row key={award.title} className={rowClass} {...link} {...hoverRoot} variants={rowBorder} transition={t300}>
+              <RowContent title={award.title} org={award.org} year={award.year} />
+            </Row>
+          );
+        })}
+      </div>
+
+      <div className="flex flex-col pt-10">
+        <span className="label mb-5">(Publication)</span>
+        <motion.a href={publication.url} {...external} className={rowClass} {...hoverRoot} variants={rowBorder} transition={t300}>
+          <RowContent title={publication.title} org={publication.journal} year={publication.year} />
+        </motion.a>
+        <a href={publication.doiUrl} {...external} className="mt-4 text-base text-muted hover:underline focus-visible:underline">
+          DOI: {publication.doi}
+        </a>
+      </div>
+
+      <div className="flex justify-center pt-12">
+        <a href={certificationsUrl} {...external} className="group text-2xl text-fg transition-colors hover:text-muted focus-visible:text-muted motion-reduce:transition-none">
+          <span className="group-hover:underline group-focus-visible:underline">Read more</span>
+        </a>
       </div>
     </section>
   );
