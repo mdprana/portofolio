@@ -7,7 +7,7 @@ import Footer from "@/components/footer";
 import Nav from "@/components/nav";
 import { MotionLink } from "@/components/motion";
 import { MeasuredReveal } from "@/components/reveal";
-import { nextProject, projectBySlug, projects } from "@/lib/content";
+import { nextProject, projectBySlug, projects, stackLogos } from "@/lib/content";
 import { hoverRoot, textMuted, tw } from "@/lib/motion";
 
 export function generateStaticParams() {
@@ -99,9 +99,26 @@ export default async function ProjectPage({
                   <dt className="label">
                     {`(${key[0].toUpperCase()}${key.slice(1)})`}
                   </dt>
-                  <dd className="text-2xl font-bold tracking-[-0.03em]">
-                    {values[key]}
-                  </dd>
+                  {key === "stack" ? (
+                    <dd>
+                      <ul className="flex flex-wrap items-center gap-4">
+                        {project.stack.split(",").map((s) => s.trim()).map((name) =>
+                          stackLogos[name] ? (
+                            <li key={name} title={name}>
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img src={stackLogos[name]} alt={name} width={32} height={32} style={{ filter: "brightness(0) invert(1)" }} />
+                            </li>
+                          ) : (
+                            <li key={name} className="text-2xl font-bold tracking-[-0.03em]">{name}</li>
+                          ),
+                        )}
+                      </ul>
+                    </dd>
+                  ) : (
+                    <dd className="text-2xl font-bold tracking-[-0.03em]">
+                      {values[key]}
+                    </dd>
+                  )}
                 </div>
               ))}
             </dl>

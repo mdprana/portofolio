@@ -255,6 +255,24 @@ const covers: [string, string][] = [
   ["#1E3A8A", "#38BDF8"], // blue-900 → sky-400
 ];
 
+export const stackLogos: Record<string, string> = {
+  HTML: "/logos/html5.svg",
+  CSS: "/logos/css.svg",
+  JavaScript: "/logos/javascript.svg",
+  PHP: "/logos/php.svg",
+  Laravel: "/logos/laravel.svg",
+  Vite: "/logos/vite.svg",
+  Python: "/logos/python.svg",
+  PyTorch: "/logos/pytorch.svg",
+  FastAPI: "/logos/fastapi.svg",
+  pandas: "/logos/pandas.svg",
+  "scikit-learn": "/logos/scikitlearn.svg",
+  MQTT: "/logos/mqtt.svg",
+  "Next.js": "/logos/nextdotjs.svg",
+  "Hugging Face": "/logos/huggingface.svg",
+  TensorFlow: "/logos/tensorflow.svg",
+};
+
 export const projects: Project[] = [
   {
     slug: "locus-hotel",
@@ -450,28 +468,6 @@ export const projects: Project[] = [
       { value: "66%", label: "Auto-routed" },
       { value: "0.89", label: "F1" },
       { value: "9", label: "Categories" },
-    ],
-  },
-  {
-    slug: "orbit",
-    title: "Orbit",
-    year: "2023",
-    tags: ["Web", "Data"],
-    featured: false,
-    role: "Developer",
-    stack: "Next.js, Python",
-    type: "Web",
-    cover: covers[3],
-    caseStudy: {
-      problem: "Public data lived in hard-to-read spreadsheets.",
-      approach: "Built a small web app that fetches, caches, and charts the open dataset.",
-      result:
-        "Anyone can read the numbers in a browser, and the dataset refreshes on a schedule.",
-    },
-    metrics: [
-      { value: "24", label: "Charts" },
-      { value: "<1s", label: "Load time" },
-      { value: "100", label: "Lighthouse" },
     ],
   },
 ];
