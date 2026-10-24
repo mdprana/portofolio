@@ -30,7 +30,7 @@ function Clock() {
 
   // Fixed width so the layout does not jitter as the seconds tick over.
   return (
-    <span className="inline-block w-[150px] whitespace-nowrap tabular-nums" suppressHydrationWarning>
+    <span className="inline-block md:w-[150px] whitespace-nowrap tabular-nums" suppressHydrationWarning>
       {time || "00:00:00"} WITA
     </span>
   );
@@ -128,14 +128,14 @@ export default function Nav() {
 
   return (
     <>
-      <header id="top" className="frame relative top-0 z-50 grid grid-cols-[1fr_auto_auto] items-center py-5 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:py-[30px]">
+      <header id="top" className="frame relative top-0 z-50 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center py-5 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:py-[30px]">
         <Link href="/" className="justify-self-start text-[15px] md:text-base">
           {profile.wordmark}
         </Link>
 
         <motion.nav
           data-motion-load="navigation"
-          className="hidden items-center gap-12 justify-self-center md:flex"
+          className="hidden items-center gap-8 lg:gap-12 justify-self-center md:flex"
           aria-label="Primary"
           initial={{ opacity: 1, y: -160, scale: 1, transformPerspective: 1200 }}
           animate={controls}
@@ -160,7 +160,7 @@ export default function Nav() {
           ))}
         </motion.nav>
 
-        <div className="flex items-center gap-1.5 justify-self-end text-[15px] md:text-base">
+        <div className="flex items-center gap-1.5 justify-self-center md:justify-self-end text-[15px] md:text-base">
           <span className="hidden text-muted md:inline">LOCAL /</span>
           <Clock />
         </div>
@@ -168,7 +168,7 @@ export default function Nav() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="ml-4 text-[15px] md:hidden"
+          className="justify-self-end text-[15px] md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-haspopup="dialog"
