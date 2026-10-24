@@ -44,9 +44,9 @@ export default function AboutPage() {
                     </div>
 
                     <Reveal delay={i * 80} className="min-w-0 flex-1 pt-10 pb-[72px]">
-                      <span className="mb-4 flex h-10 items-center">
+                      <span className={`mb-4 flex items-center ${item.logoLarge ? "h-16" : "h-10"}`}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={item.logo} alt="" className="h-full w-auto max-w-[160px] object-contain" loading="lazy" />
+                        <img src={item.logo} alt="" className={`h-full w-auto ${item.logoLarge ? "max-w-[200px]" : "max-w-[160px]"} object-contain`} loading="lazy" />
                       </span>
                       <p className="text-base text-muted">{item.period}</p>
                       <h3 className="mt-3 text-[40px] font-bold leading-[1.1] tracking-[-0.04em] [overflow-wrap:anywhere]">

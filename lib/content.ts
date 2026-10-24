@@ -183,6 +183,7 @@ export const timeline = [
     role: "Blockchain Technology Apprentice & Polkadot Developer Bootcamp",
     org: "Baliola / Mandala Chain Foundation",
     logo: "/logos/experience/mandala-chain.png",
+    logoLarge: true,
     description:
       "Soulbound ERC-721 on Niskala testnet, Substrate fundamentals and TypeScript UI, Top 10 recognition.",
   },
@@ -191,6 +192,7 @@ export const timeline = [
     role: "Machine Learning Cohort Participant",
     org: "Bangkit Academy led by Google, GoTo, and Traveloka",
     logo: "/logos/experience/bangkit.png",
+    logoLarge: true,
     description:
       "Graduated with distinction in the top 10%; Mentalys capstone team placed in the Top 50 of 644 teams.",
   },
@@ -199,6 +201,7 @@ export const timeline = [
     role: "Web Developer",
     org: "PT Econdelight (Gecko Internet Service Provider)",
     logo: "/logos/experience/gecko.png",
+    logoLarge: true,
     description:
       "Hotel frontend HTML/CSS/JS from Figma integrated with Laravel routing/content.",
   },
@@ -207,6 +210,7 @@ export const timeline = [
     role: "Team Leader, GEMASTIK XVI Cybersecurity Preliminary Round",
     org: "GEMASTIK XVI (Pagelaran Mahasiswa Nasional Bidang TIK)",
     logo: "/logos/experience/gemastik.png",
+    logoLarge: true,
     description:
       "Led preliminary-round cybersecurity participation across forensics, web, and binary exploitation.",
   },
@@ -215,6 +219,7 @@ export const timeline = [
     role: "Bachelor’s Degree in Computer Science",
     org: "Universitas Udayana",
     logo: "/logos/experience/udayana.png",
+    logoLarge: true,
     description:
       "GPA 3.84/4.00.",
   },
