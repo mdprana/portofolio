@@ -150,6 +150,7 @@ export const timeline = [
     period: "Sep 2026–Present",
     role: "Brilliant Internship Assistant",
     org: "PT Bank Rakyat Indonesia (Persero) Tbk, Ultra Micro Business Department",
+    logo: "/logos/experience/bri.png",
     description:
       "BRILink monitoring, Google Sheets automation, and Agen Inbox workflow support for daily operations.",
   },
@@ -157,6 +158,7 @@ export const timeline = [
     period: "Jul 2026–Present",
     role: "Local Language Specialist Intern",
     org: "PT GoTo Gojek Tokopedia Tbk, Data Science",
+    logo: "/logos/experience/goto.png",
     description:
       "Balinese LLM factual/lexical/naturalness/Sor Singgih evaluation, rubric work and GoFood candidate relevance labels.",
   },
@@ -164,6 +166,7 @@ export const timeline = [
     period: "May–Jul 2026",
     role: "Engineer On-Site / IT Support",
     org: "PT Metra-Net (Metranet), subsidiary of PT Telkom Indonesia (Persero) Tbk",
+    logo: "/logos/experience/metranet.png",
     description:
       "Bali SPMB 2026 rollout for 146 schools (89 SMA/57 SMK), Python automation and Streamlit data processing.",
   },
@@ -171,6 +174,7 @@ export const timeline = [
     period: "Mar–Jun 2025",
     role: "Junior Data Science Intern",
     org: "PT Vinix Seven Aurum (VINIX7)",
+    logo: "/logos/experience/vinix7.png",
     description:
       "Data preprocessing and four-person Insight-PTN team, 411 study programs/62 public universities, K-Means/recommendation/visualization.",
   },
@@ -178,6 +182,7 @@ export const timeline = [
     period: "Feb–Mar 2025",
     role: "Blockchain Technology Apprentice & Polkadot Developer Bootcamp",
     org: "Baliola / Mandala Chain Foundation",
+    logo: "/logos/experience/mandala-chain.png",
     description:
       "Soulbound ERC-721 on Niskala testnet, Substrate fundamentals and TypeScript UI, Top 10 recognition.",
   },
@@ -185,6 +190,7 @@ export const timeline = [
     period: "Sep 2024–Jan 2025",
     role: "Machine Learning Cohort Participant",
     org: "Bangkit Academy led by Google, GoTo, and Traveloka",
+    logo: "/logos/experience/bangkit.png",
     description:
       "Graduated with distinction in the top 10%; Mentalys capstone team placed in the Top 50 of 644 teams.",
   },
@@ -192,6 +198,7 @@ export const timeline = [
     period: "Aug–Sep 2024",
     role: "Web Developer",
     org: "PT Econdelight (Gecko Internet Service Provider)",
+    logo: "/logos/experience/gecko.png",
     description:
       "Hotel frontend HTML/CSS/JS from Figma integrated with Laravel routing/content.",
   },
@@ -199,6 +206,7 @@ export const timeline = [
     period: "May–Jul 2023",
     role: "Team Leader, GEMASTIK XVI Cybersecurity Preliminary Round",
     org: "GEMASTIK XVI (Pagelaran Mahasiswa Nasional Bidang TIK)",
+    logo: "/logos/experience/gemastik.png",
     description:
       "Led preliminary-round cybersecurity participation across forensics, web, and binary exploitation.",
   },
@@ -206,6 +214,7 @@ export const timeline = [
     period: "Sep 2022–Jul 2026",
     role: "Bachelor’s Degree in Computer Science",
     org: "Universitas Udayana",
+    logo: "/logos/experience/udayana.png",
     description:
       "GPA 3.84/4.00.",
   },

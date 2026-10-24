@@ -44,6 +44,10 @@ export default function AboutPage() {
                     </div>
 
                     <Reveal delay={i * 80} className="min-w-0 flex-1 pt-10 pb-[72px]">
+                      <span className="mb-4 inline-flex h-14 items-center rounded-lg bg-white px-3 py-2">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={item.logo} alt="" className="h-full w-auto max-w-[160px] object-contain" loading="lazy" />
+                      </span>
                       <p className="text-base text-muted">{item.period}</p>
                       <h3 className="mt-3 text-[40px] font-bold leading-[1.1] tracking-[-0.04em] [overflow-wrap:anywhere]">
                         {item.role}
