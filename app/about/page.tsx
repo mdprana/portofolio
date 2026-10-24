@@ -44,7 +44,7 @@ export default function AboutPage() {
                     </div>
 
                     <Reveal delay={i * 80} className="min-w-0 flex-1 pt-10 pb-[72px]">
-                      <span className="mb-4 inline-flex h-14 items-center rounded-lg bg-white px-3 py-2">
+                      <span className="mb-4 flex h-10 items-center">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={item.logo} alt="" className="h-full w-auto max-w-[160px] object-contain" loading="lazy" />
                       </span>
