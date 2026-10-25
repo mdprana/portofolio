@@ -144,11 +144,7 @@ export function TechStack() {
         <FitText text="The Toolkit" />
       </div>
 
-      <div className="frame flex items-end justify-between gap-8">
-        <div className="flex flex-col gap-3">
-          <span className="label">(Tech Stack)</span>
-          <span className="label">12 elements · 5 groups</span>
-        </div>
+      <div className="frame flex items-end justify-end gap-8">
         <p className="body-xl max-w-[760px] text-muted">
           The tools I use to clean data, train models, and ship them to the web.
         </p>
