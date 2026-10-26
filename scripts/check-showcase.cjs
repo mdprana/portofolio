@@ -12,7 +12,7 @@ function load(source) {
   new Function('exports', 'module', output)(compiled.exports, compiled);
   return compiled.exports;
 }
-  const { projects, homeProjects, projectBySlug, nextProject, stackLogos } = load(fs.readFileSync(path.join(root, 'lib/content.ts'), 'utf8'));
+  const { projects, homeProjects, projectBySlug, nextProject, stackLogos, tools } = load(fs.readFileSync(path.join(root, 'lib/content.ts'), 'utf8'));
   const before = load(execFileSync('git', ['show', 'HEAD:lib/content.ts'], { cwd: root, encoding: 'utf8' }));
 
    const inventory = ['mentalys', 'agen-inbox', 'siraja', 'insight-ptn', 'substrate-dev-template', 'emotiscan', 'locus-hotel', 'atlas'];
@@ -130,6 +130,24 @@ function load(source) {
        assert.match(item[2], /height="32"/);
      }
    }
-   console.log('Showcase checks passed: eight exact projects, Home order/flags, eight preserved objects, full nextProject cycle, metadata, disclosures, assets, complete logos and stable year-descending listing, production li/img counts 7/6/5/5/5/5/7/2.');
+   assert.equal(tools.length % 6, 0);
+   assert.equal(tools.length, 24);
+   assert.equal(new Set(tools.map(t => t.name)).size, tools.length);
+   const original12 = ['Python', 'TensorFlow', 'Keras', 'PyTorch', 'scikit-learn', 'Hugging Face', 'pandas', 'NumPy', 'Jupyter', 'OpenCV', 'Next.js', 'React'];
+   const stackTokens = new Set(projects.flatMap(p => p.stack.split(',').map(s => s.trim())));
+   for (const [i, tool] of tools.entries()) {
+     assert.equal(tool.index, String(i + 1).padStart(2, '0'));
+     assert.match(tool.category, /^\((Language|ML|Data|Vision|Audio|Web|Mobile|Cloud)\)$/);
+     assert.ok(tool.logo.startsWith('/logos/mono/'), tool.logo);
+     assert.ok(fs.statSync(path.join(root, 'public', tool.logo)).isFile(), tool.logo);
+     assert.ok(stackTokens.has(tool.name) || original12.includes(tool.name), `Tool not in any stack: ${tool.name}`);
+   }
+   for (const slug of ['python', 'tensorflow', 'keras', 'pytorch', 'scikitlearn', 'huggingface', 'pandas', 'numpy', 'jupyter', 'opencv', 'nextdotjs', 'react']) {
+     assert.ok(fs.readFileSync(path.join(root, 'public/logos/mono', `${slug}.svg`)).equals(execFileSync('git', ['show', `9ac728e:public/logos/${slug}.svg`], { cwd: root })), slug);
+   }
+   for (const name of fs.readdirSync(path.join(root, 'public/logos')).filter(f => /\.(svg|png)$/.test(f))) {
+     assert.ok(fs.readFileSync(path.join(root, 'public/logos', name)).equals(execFileSync('git', ['show', `HEAD:public/logos/${name}`], { cwd: root })), name);
+   }
+   console.log('Showcase checks passed: eight exact projects, Home order/flags, eight preserved objects, full nextProject cycle, metadata, disclosures, assets, complete logos and stable year-descending listing, production li/img counts 7/6/5/5/5/5/7/2, 24 mono toolkit tiles.');
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

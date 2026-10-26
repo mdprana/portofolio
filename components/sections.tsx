@@ -146,7 +146,7 @@ export function TechStack() {
 
       <div className="frame flex items-end justify-end gap-8">
         <p className="body-xl max-w-[760px] text-muted">
-          The tools I use to clean data, train models, and ship them to the web.
+          The stack behind my audio, vision and mobile ML models, data apps, and web products.
         </p>
       </div>
 

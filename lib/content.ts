@@ -128,20 +128,32 @@ export type Tool = {
   logo: string;
 };
 
-/** Tech Stack (32:156) — 12 elements · 5 groups. */
+/** Tech Stack — 24 tools from project stacks. */
 export const tools: Tool[] = [
-  { name: "Python", category: "(Language)", index: "01", logo: "/logos/python.svg" },
-  { name: "TensorFlow", category: "(ML)", index: "02", logo: "/logos/tensorflow.svg" },
-  { name: "Keras", category: "(ML)", index: "03", logo: "/logos/keras.svg" },
-  { name: "PyTorch", category: "(ML)", index: "04", logo: "/logos/pytorch.svg" },
-  { name: "scikit-learn", category: "(ML)", index: "05", logo: "/logos/scikitlearn.svg" },
-  { name: "Hugging Face", category: "(ML)", index: "06", logo: "/logos/huggingface.svg" },
-  { name: "pandas", category: "(Data)", index: "07", logo: "/logos/pandas.svg" },
-  { name: "NumPy", category: "(Data)", index: "08", logo: "/logos/numpy.svg" },
-  { name: "Jupyter", category: "(Data)", index: "09", logo: "/logos/jupyter.svg" },
-  { name: "OpenCV", category: "(Vision)", index: "10", logo: "/logos/opencv.svg" },
-  { name: "Next.js", category: "(Web)", index: "11", logo: "/logos/nextdotjs.svg" },
-  { name: "React", category: "(Web)", index: "12", logo: "/logos/react.svg" },
+  { name: "Python", category: "(Language)", index: "01", logo: "/logos/mono/python.svg" },
+  { name: "TypeScript", category: "(Language)", index: "02", logo: "/logos/mono/typescript.svg" },
+  { name: "JavaScript", category: "(Language)", index: "03", logo: "/logos/mono/javascript.svg" },
+  { name: "PHP", category: "(Language)", index: "04", logo: "/logos/mono/php.svg" },
+  { name: "TensorFlow", category: "(ML)", index: "05", logo: "/logos/mono/tensorflow.svg" },
+  { name: "Keras", category: "(ML)", index: "06", logo: "/logos/mono/keras.svg" },
+  { name: "PyTorch", category: "(ML)", index: "07", logo: "/logos/mono/pytorch.svg" },
+  { name: "scikit-learn", category: "(ML)", index: "08", logo: "/logos/mono/scikitlearn.svg" },
+  { name: "Hugging Face", category: "(ML)", index: "09", logo: "/logos/mono/huggingface.svg" },
+  { name: "pandas", category: "(Data)", index: "10", logo: "/logos/mono/pandas.svg" },
+  { name: "NumPy", category: "(Data)", index: "11", logo: "/logos/mono/numpy.svg" },
+  { name: "Jupyter", category: "(Data)", index: "12", logo: "/logos/mono/jupyter.svg" },
+  { name: "Plotly", category: "(Data)", index: "13", logo: "/logos/mono/plotly.svg" },
+  { name: "Streamlit", category: "(Data)", index: "14", logo: "/logos/mono/streamlit.svg" },
+  { name: "OpenCV", category: "(Vision)", index: "15", logo: "/logos/mono/opencv.svg" },
+  { name: "scikit-image", category: "(Vision)", index: "16", logo: "/logos/mono/scikitimage.svg" },
+  { name: "Librosa", category: "(Audio)", index: "17", logo: "/logos/mono/librosa.svg" },
+  { name: "Next.js", category: "(Web)", index: "18", logo: "/logos/mono/nextdotjs.svg" },
+  { name: "React", category: "(Web)", index: "19", logo: "/logos/mono/react.svg" },
+  { name: "Tailwind CSS", category: "(Web)", index: "20", logo: "/logos/mono/tailwindcss.svg" },
+  { name: "Laravel", category: "(Web)", index: "21", logo: "/logos/mono/laravel.svg" },
+  { name: "Kotlin", category: "(Mobile)", index: "22", logo: "/logos/mono/kotlin.svg" },
+  { name: "Firebase", category: "(Cloud)", index: "23", logo: "/logos/mono/firebase.svg" },
+  { name: "Cloud Run", category: "(Cloud)", index: "24", logo: "/logos/mono/googlecloud.svg" },
 ];
 
 /** Timeline items (25:222) — About page only. */
