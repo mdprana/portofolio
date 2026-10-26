@@ -271,6 +271,21 @@ export const stackLogos: Record<string, string> = {
   "Next.js": "/logos/nextdotjs.svg",
   "Hugging Face": "/logos/huggingface.svg",
   TensorFlow: "/logos/tensorflow.svg",
+  "TensorFlow Lite": "/logos/tensorflow.svg",
+  Keras: "/logos/keras.svg",
+  OpenCV: "/logos/opencv.svg",
+  Kotlin: "/logos/kotlin.svg",
+  TypeScript: "/logos/typescript.svg",
+  Express: "/logos/express.svg",
+  Firebase: "/logos/firebase.svg",
+  "Cloud Run": "/logos/googlecloud.svg",
+  // ponytail: ML Kit has no standalone brand mark; uses Google's.
+  "ML Kit": "/logos/google.svg",
+  Plotly: "/logos/plotly.svg",
+  Streamlit: "/logos/streamlit.svg",
+  Librosa: "/logos/librosa.svg",
+  "scikit-image": "/logos/scikitimage.png",
+  Blade: "/logos/laravel.svg",
 };
 
 export const projects: Project[] = [
