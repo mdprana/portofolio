@@ -14,20 +14,19 @@ function load(source) {
 }
   const { projects, homeProjects, projectBySlug, nextProject, stackLogos } = load(fs.readFileSync(path.join(root, 'lib/content.ts'), 'utf8'));
   const before = load(execFileSync('git', ['show', 'HEAD:lib/content.ts'], { cwd: root, encoding: 'utf8' }));
-  const existing = ['mentalys', 'siraja', 'emotiscan', 'locus-hotel', 'insight-ptn', 'atlas', 'sentra', 'bloom'];
+   const existing = ['mentalys', 'siraja', 'emotiscan', 'locus-hotel', 'insight-ptn', 'atlas'];
   const inventory = [...existing, 'substrate-dev-template', 'agen-inbox'];
   assert.deepEqual(projects.map(p => p.slug), inventory);
   assert.equal(new Set(projects.map(p => p.slug)).size, projects.length);
-  for (const slug of existing) assert.deepEqual(projectBySlug(slug), before.projects.find(p => p.slug === slug));
-  assert.deepEqual(homeProjects.map(p => p.slug), inventory.slice(0, 4));
-  for (const slug of ['nodewatch', 'ledger']) assert.equal(projectBySlug(slug), undefined);
-  for (const slug of ['mentalys', 'locus-hotel', 'insight-ptn', 'atlas', 'sentra', 'bloom']) {
-    const original = before.projects.find(p => p.slug === slug);
-    assert.deepEqual(projectBySlug(slug), { ...original, featured: inventory.slice(0, 4).includes(slug) });
-  }
-  assert.equal(nextProject('mentalys').slug, 'siraja');
-  assert.equal(nextProject('bloom').slug, 'substrate-dev-template');
-  assert.equal(nextProject('agen-inbox').slug, 'mentalys');
+   const featured = ['mentalys', 'substrate-dev-template', 'agen-inbox', 'locus-hotel'];
+   assert.deepEqual(homeProjects.map(p => p.slug), featured);
+   for (const slug of ['nodewatch', 'ledger', 'sentra', 'bloom']) assert.equal(projectBySlug(slug), undefined);
+   for (const slug of inventory) {
+     const original = before.projects.find(p => p.slug === slug);
+     assert.ok(original, `Missing preservation baseline: ${slug}`);
+     assert.deepEqual(projectBySlug(slug), { ...original, featured: featured.includes(slug) });
+   }
+   assert.equal(projectBySlug('atlas').featured, false);
   for (const [index, slug] of inventory.entries()) assert.equal(nextProject(slug).slug, inventory[(index + 1) % inventory.length]);
   for (const [slug, title, year, role, type, stack, repo, gallery] of [
     ['siraja', 'SIRAJA', '2025', 'Academic Team Contributor', 'Academic Team Project / Audio Classification', 'Python, TensorFlow, Keras, Librosa, Streamlit', 'https://github.com/mdprana/SIRAJA', ['overview', 'upload', 'signals', 'about']],
@@ -36,7 +35,7 @@ function load(source) {
     const p = projectBySlug(slug);
     assert.deepEqual([p.title, p.year, p.role, p.type, p.stack, p.repoUrl], [title, year, role, type, stack, repo]);
     assert.deepEqual(p.tags, ['Machine Learning']);
-    assert.equal(p.featured, true);
+     assert.equal(p.featured, false);
     assert.equal(p.demoUrl, undefined);
     assert.deepEqual(p.metrics, []);
     assert.deepEqual(p.gallery.map(a => a.src), gallery.map(name => `/projects/${slug}/${name}.webp`));
@@ -65,13 +64,13 @@ function load(source) {
   for (const slug of ['siraja', 'emotiscan']) assert.deepEqual(fs.readdirSync(path.join(root, 'public/projects', slug)).sort(), projectBySlug(slug).gallery.map(a => path.basename(a.src)).sort());
   for (const [slug, title, year, role, type, stack, demo, gallery, logos] of [
     ['substrate-dev-template', 'Polkadot.js Interface', '2025', 'Frontend Developer', 'Developer Bootcamp / Blockchain Interface', 'React, TypeScript, Tailwind CSS, Polkadot.js API, Netlify', 'https://mdprana-polkadotjs-interface.netlify.app/', ['home', 'chain-state', 'extrinsics'], ['react.svg', 'typescript.svg', 'tailwindcss.svg', 'polkadot.svg', 'netlify.svg']],
-    ['agen-inbox', 'Agen Inbox', '2026', 'Full-stack Developer', 'Private Workspace / Email Workflow', 'Next.js, React, Gmail API, Google Sheets API, Upstash, Vercel', 'https://agen-inbox.vercel.app/', ['login-desktop', 'login-mobile'], ['nextdotjs.svg', 'react.svg', 'gmail.svg', 'googlesheets.svg', 'upstash.svg', 'vercel.svg']],
+    ['agen-inbox', 'Agen Inbox', '2026', 'Full-stack Developer', 'Private Workspace / Email Workflow', 'Next.js, React, Gmail API, Google Sheets API, Upstash, Vercel', 'https://agen-inbox.vercel.app/', ['login-desktop', 'login-mobile'], ['nextdotjs.svg', 'react.svg', 'gmail.png', 'googlesheets.svg', 'upstash.svg', 'vercel.svg']],
   ]) {
     const p = projectBySlug(slug);
     assert.deepEqual([p.title, p.year, p.role, p.type, p.stack, p.repoUrl, p.demoUrl], [title, year, role, type, stack, `https://github.com/mdprana/${slug}`, demo]);
     assert.deepEqual(p.tags, ['Web']);
-    assert.equal(p.featured, false);
-    assert.deepEqual(p.metrics, []);
+     assert.equal(p.featured, true);
+     assert.deepEqual(p.metrics, []);
     assert.ok(p.summary.length > 50);
     assert.equal(p.image.src, `/projects/${slug}.webp`);
     assert.deepEqual([p.image.width, p.image.height], [1296, 1440]);
@@ -100,6 +99,35 @@ function load(source) {
   assert.match(ai.caseStudy.result, /restricted-access.*sign-in only.*No live Gmail or Google Sheets operation is claimed verified/);
   for (const asset of ai.gallery) assert.match(asset.alt, /public login screen.*no private inbox or records/);
   assert.doesNotMatch(JSON.stringify([pk, ai]), /\bBRI\b|\d+(?:\.\d+)?%/i);
-  console.log('Showcase checks passed: ten-project inventory, home invariant, eight preserved objects, full nextProject cycle, metadata, disclosures, logos and seventeen WebP assets.');
+   const detailSource = fs.readFileSync(path.join(root, 'app/projects/[slug]/page.tsx'), 'utf8');
+   assert.doesNotMatch(detailSource, /\.filter\(|findIndex\(/);
+   assert.match(detailSource, /src=\{stackLogos\[name\]\}/);
+   assert.match(detailSource, /alt=\{name\}/);
+   const counts = [7, 5, 5, 7, 5, 2, 5, 6];
+   for (const [index, project] of projects.entries()) {
+     const tokens = project.stack.split(',').map(s => s.trim());
+     assert.equal(tokens.length, counts[index]);
+     for (const token of tokens) {
+       assert.ok(stackLogos[token], `Missing logo mapping: ${token}`);
+       const file = path.join(root, 'public', stackLogos[token]);
+       assert.ok(fs.statSync(file).isFile());
+       const { info } = await sharp(file).resize({ height: 32 }).png().toBuffer({ resolveWithObject: true });
+       assert.equal(info.height, 32);
+       assert.ok(info.width > 0);
+     }
+     const html = fs.readFileSync(path.join(root, '.next/server/app/projects', `${project.slug}.html`), 'utf8');
+     const stack = html.match(/<dt[^>]*>\(Stack\)<\/dt><dd><ul[^>]*>(.*?)<\/ul>/s)?.[1];
+     assert.ok(stack, `Missing production stack: ${project.slug}`);
+     const items = [...stack.matchAll(/<li\b[^>]*title="([^"]+)"[^>]*>(.*?)<\/li>/gs)];
+     assert.equal(items.length, counts[index], project.slug);
+     assert.deepEqual(items.map(item => item[1]), tokens);
+     assert.equal([...stack.matchAll(/<img\b/g)].length, counts[index]);
+     for (const [i, item] of items.entries()) {
+       assert.match(item[2], new RegExp(`alt="${tokens[i].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
+       assert.ok(item[2].includes(`src="${stackLogos[tokens[i]]}"`));
+       assert.match(item[2], /height="32"/);
+     }
+   }
+   console.log('Showcase checks passed: eight exact projects, Home order/flags, eight preserved objects, full nextProject cycle, metadata, disclosures, assets, complete logos and production li/img counts 7/5/5/7/5/2/5/6.');
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

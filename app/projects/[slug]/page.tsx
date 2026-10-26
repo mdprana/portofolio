@@ -102,18 +102,19 @@ export default async function ProjectPage({
                   {key === "stack" ? (
                     <dd>
                       <ul className="flex flex-wrap items-center gap-4">
-                        {project.stack.split(",").map((s) => s.trim())
-                          .filter((name, i, all) => !stackLogos[name] || all.findIndex((n) => stackLogos[n] === stackLogos[name]) === i)
-                          .map((name) =>
-                          stackLogos[name] ? (
-                            <li key={name} title={name}>
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img src={stackLogos[name]} alt={name} height={32} className="h-8 w-auto" style={{ filter: "brightness(0) invert(1)" }} />
-                            </li>
-                          ) : (
-                            <li key={name} className="text-2xl font-bold tracking-[-0.03em]">{name}</li>
-                          ),
-                        )}
+                        {project.stack.split(",").map((s) => s.trim()).map((name) => (
+                          <li key={name} title={name}>
+                            <Image
+                              src={stackLogos[name]}
+                              alt={name}
+                              width={32}
+                              height={32}
+                              unoptimized
+                              className="h-8 w-auto"
+                              style={(["Express", "Next.js", "Vercel"].includes(name)) ? { filter: "brightness(0) invert(1)" } : undefined}
+                            />
+                          </li>
+                        ))}
                       </ul>
                     </dd>
                   ) : (

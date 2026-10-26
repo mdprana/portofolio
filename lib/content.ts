@@ -290,7 +290,7 @@ export const stackLogos: Record<string, string> = {
   "Tailwind CSS": "/logos/tailwindcss.svg",
   "Polkadot.js API": "/logos/polkadot.svg",
   Netlify: "/logos/netlify.svg",
-  "Gmail API": "/logos/gmail.svg",
+  "Gmail API": "/logos/gmail.png",
   "Google Sheets API": "/logos/googlesheets.svg",
   Upstash: "/logos/upstash.svg",
   Vercel: "/logos/vercel.svg",
@@ -345,7 +345,7 @@ export const projects: Project[] = [
     title: "SIRAJA",
     year: "2025",
     tags: ["Machine Learning"],
-    featured: true,
+    featured: false,
     role: "Academic Team Contributor",
     stack: "Python, TensorFlow, Keras, Librosa, Streamlit",
     type: "Academic Team Project / Audio Classification",
@@ -380,7 +380,7 @@ export const projects: Project[] = [
     title: "EmotiScan",
     year: "2024",
     tags: ["Machine Learning"],
-    featured: true,
+    featured: false,
     role: "Developer",
     stack: "Python, OpenCV, TensorFlow, scikit-image, Streamlit",
     type: "Academic Project / Facial Expression Recognition",
@@ -510,55 +510,11 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "sentra",
-    title: "Sentra",
-    year: "2024",
-    tags: ["Machine Learning", "Data"],
-    featured: false,
-    role: "Data Scientist",
-    stack: "Python, pandas",
-    type: "Analytics",
-    cover: covers[1],
-    caseStudy: {
-      problem: "Reporting was rebuilt by hand every month.",
-      approach: "Modeled the warehouse once and generated the recurring reports from it.",
-      result: "Monthly reporting dropped from days of work to a scheduled job.",
-    },
-    metrics: [
-      { value: "−90%", label: "Reporting time" },
-      { value: "18", label: "Source tables" },
-      { value: "1", label: "Model" },
-    ],
-  },
-  {
-    slug: "bloom",
-    title: "Bloom",
-    year: "2023",
-    tags: ["NLP"],
-    featured: false,
-    role: "ML Engineer",
-    stack: "Python, TensorFlow",
-    type: "Classification",
-    cover: covers[2],
-    caseStudy: {
-      problem: "Support tickets were routed by hand to the wrong teams.",
-      approach:
-        "Fine-tuned a text classifier on labeled tickets and routed with a confidence fallback.",
-      result:
-        "Two thirds of tickets now route automatically, with low-confidence cases kept for humans.",
-    },
-    metrics: [
-      { value: "66%", label: "Auto-routed" },
-      { value: "0.89", label: "F1" },
-      { value: "9", label: "Categories" },
-    ],
-  },
-  {
     slug: "substrate-dev-template",
     title: "Polkadot.js Interface",
     year: "2025",
     tags: ["Web"],
-    featured: false,
+    featured: true,
     role: "Frontend Developer",
     stack: "React, TypeScript, Tailwind CSS, Polkadot.js API, Netlify",
     type: "Developer Bootcamp / Blockchain Interface",
@@ -593,7 +549,7 @@ export const projects: Project[] = [
     title: "Agen Inbox",
     year: "2026",
     tags: ["Web"],
-    featured: false,
+    featured: true,
     role: "Full-stack Developer",
     stack: "Next.js, React, Gmail API, Google Sheets API, Upstash, Vercel",
     type: "Private Workspace / Email Workflow",
@@ -624,7 +580,9 @@ export const projects: Project[] = [
   },
 ];
 
-export const homeProjects = projects.filter((p) => p.featured);
+export const homeProjects = ["mentalys", "substrate-dev-template", "agen-inbox", "locus-hotel"].map(
+  (slug) => projects.find((project) => project.slug === slug)!,
+);
 
 export function projectBySlug(slug: string) {
   return projects.find((p) => p.slug === slug);
