@@ -318,28 +318,44 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "pulse",
-    title: "Pulse",
+    slug: "insight-ptn",
+    title: "Insight-PTN",
     year: "2025",
     tags: ["Data", "Machine Learning"],
     featured: true,
-    role: "Data Scientist",
-    stack: "Python, pandas, scikit-learn",
-    type: "Forecasting",
+    role: "Junior Data Science Intern",
+    stack: "Python, pandas, scikit-learn, Plotly, Streamlit",
+    type: "Internship Team Project / Data Dashboard",
     cover: covers[1],
+    image: {
+      src: "/projects/insight-ptn.webp",
+      alt: "Insight-PTN dashboard presentation showing the data visualization page on a laptop and the cluster analysis page on a tilted screen, on a dark maroon background.",
+      width: 1296,
+      height: 1440,
+    },
+    gallery: [
+      { src: "/projects/insight-ptn/overview.webp", alt: "Insight-PTN home page dataset summary: 411 records, 273 study programs, 62 public universities and an average of 368 applicants, with dataset notes.", width: 2880, height: 1800 },
+      { src: "/projects/insight-ptn/relationships.webp", alt: "Visualisasi Data page, Hubungan Antar Variabel tab: X, Y and color selectors above a scatter of 2024 applicants against minimum starting salary, colored by difficulty level.", width: 2880, height: 1800 },
+      { src: "/projects/insight-ptn/correlation.webp", alt: "Correlation matrix heatmap of the numeric study-program features below the applicant and salary scatter.", width: 2880, height: 1800 },
+      { src: "/projects/insight-ptn/top-programs.webp", alt: "Top Jurusan tab: top 10 study programs bar chart by university with a detail table listing programs such as Aktuaria and Hubungan Internasional.", width: 2880, height: 1800 },
+      { src: "/projects/insight-ptn/clusters.webp", alt: "Analisis Cluster page: study-program count per K-Means cluster, a PCA cluster scatter and a cluster scatter of applicants against salary.", width: 2880, height: 1800 },
+      { src: "/projects/insight-ptn/cluster-profile.webp", alt: "Guide to reading the PCA and scatter charts above a radar chart comparing the characteristics of each cluster.", width: 2880, height: 1800 },
+      { src: "/projects/insight-ptn/difficulty.webp", alt: "Heatmap of difficulty-level proportions per cluster with interpretation notes and a study-program list selector for each cluster.", width: 2880, height: 1800 },
+      { src: "/projects/insight-ptn/recommendations.webp", alt: "Sistem Rekomendasi results: ranked study-program cards showing 2024 applicants, starting salary range and graduation rate.", width: 2880, height: 1800 },
+    ],
+    summary:
+      "An interactive Streamlit dashboard that analyzes 411 social-science (IPS) study programs across 62 Indonesian public universities to surface programs with fewer applicants but strong job prospects.",
+    repoUrl: "https://github.com/mdprana/ips-ptn-dashboard",
+    demoUrl: "https://tim10d-dashboard.streamlit.app",
     caseStudy: {
       problem:
-        "Monthly demand was planned from spreadsheets, so stockouts and overstock both ran high.",
+        "Prospective students tend to compete for the same popular programs, while less crowded IPS programs with good career outcomes are hard to find in one place.",
       approach:
-        "Built a feature pipeline over three years of sales history and compared gradient-boosted and seasonal baselines on a rolling-origin split.",
+        "Built during my PT Vinix Seven Aurum (VINIX7) internship as a 4-person team under mentor Musayyanah. The dashboard groups programs with K-Means into 4 clusters, maps them across Indonesia, ranks top programs and recommends programs from user preferences such as applicant count, salary, location and difficulty. I applied the clustering and built the recommendation and visualization features.",
       result:
-        "Cut forecast error by a third and shipped the model behind an internal dashboard.",
+        "A public Streamlit app with five pages: overview, data visualization, cluster analysis, recommendations and an about guide. Data comes from university pages and other public sources and is meant as a reference to confirm with official sources, not a final admission decision.",
     },
-    metrics: [
-      { value: "−33%", label: "Forecast error" },
-      { value: "3 yrs", label: "History modeled" },
-      { value: "12", label: "SKU groups" },
-    ],
+    metrics: [],
   },
   {
     slug: "nodewatch",
