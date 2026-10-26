@@ -329,7 +329,7 @@ export const projects: Project[] = [
     cover: covers[0],
     image: {
       src: "/projects/siraja.webp",
-      alt: "SIRAJA audio-upload interface and actual waveform and spectrogram captures on a dark blue background.",
+      alt: "SIRAJA cover: heart-sound prediction page in a laptop mockup, with a tablet showing waveform and spectrogram and a card of the Normal, Murmur and Artifact classes, on a dark blue background.",
       width: 1296,
       height: 1440,
     },
@@ -364,7 +364,7 @@ export const projects: Project[] = [
     cover: covers[1],
     image: {
       src: "/projects/emotiscan.webp",
-      alt: "EmotiScan empty image-upload and camera-permission interfaces captured locally, with no faces or prediction results.",
+      alt: "EmotiScan cover: camera-mode interface in a laptop mockup with tablets showing the class distribution and confusion matrix, on a dark purple background; no face or prediction result shown.",
       width: 1296,
       height: 1440,
     },
