@@ -286,6 +286,14 @@ export const stackLogos: Record<string, string> = {
   Librosa: "/logos/librosa.svg",
   "scikit-image": "/logos/scikitimage.png",
   Blade: "/logos/laravel.svg",
+  React: "/logos/react.svg",
+  "Tailwind CSS": "/logos/tailwindcss.svg",
+  "Polkadot.js API": "/logos/polkadot.svg",
+  Netlify: "/logos/netlify.svg",
+  "Gmail API": "/logos/gmail.svg",
+  "Google Sheets API": "/logos/googlesheets.svg",
+  Upstash: "/logos/upstash.svg",
+  Vercel: "/logos/vercel.svg",
 };
 
 export const projects: Project[] = [
@@ -544,6 +552,75 @@ export const projects: Project[] = [
       { value: "0.89", label: "F1" },
       { value: "9", label: "Categories" },
     ],
+  },
+  {
+    slug: "substrate-dev-template",
+    title: "Polkadot.js Interface",
+    year: "2025",
+    tags: ["Web"],
+    featured: false,
+    role: "Frontend Developer",
+    stack: "React, TypeScript, Tailwind CSS, Polkadot.js API, Netlify",
+    type: "Developer Bootcamp / Blockchain Interface",
+    cover: covers[0],
+    image: {
+      src: "/projects/substrate-dev-template.webp",
+      alt: "Polkadot.js Interface on a laptop plus two phones showing public chain exploration and transaction preparation screens.",
+      width: 1296,
+      height: 1440,
+    },
+    gallery: [
+      { src: "/projects/substrate-dev-template/home.webp", alt: "Polkadot.js Interface public home screen with RPC connection and chain exploration controls.", width: 2880, height: 1800 },
+      { src: "/projects/substrate-dev-template/chain-state.webp", alt: "Polkadot.js Interface public chain-state screen for preparing chain storage queries.", width: 2880, height: 1800 },
+      { src: "/projects/substrate-dev-template/extrinsics.webp", alt: "Polkadot.js Interface public extrinsics preparation screen; no transaction submitted during capture.", width: 2880, height: 1800 },
+    ],
+    summary:
+      "A responsive React and TypeScript interface for exploring Substrate chain state, preparing extrinsics and token transfers.",
+    repoUrl: "https://github.com/mdprana/substrate-dev-template",
+    demoUrl: "https://mdprana-polkadotjs-interface.netlify.app/",
+    caseStudy: {
+      problem:
+        "Make RPC connection, storage queries and transaction preparation accessible in one browser interface.",
+      approach:
+        "I contributed the interface on a bootcamp starter repository, not the original chain architecture. React 19, TypeScript, Tailwind CSS and Polkadot.js API connect the interface to Westend, local Zombienet or a custom RPC endpoint, with wallet connection and transaction preparation controls.",
+      result:
+        "A public interface with chain-state, extrinsic and transfer screens. Screenshots show the public interface only; no transaction was submitted during capture. Transfer execution is not independently verified, and production readiness or original runtime design is not claimed.",
+    },
+    metrics: [],
+  },
+  {
+    slug: "agen-inbox",
+    title: "Agen Inbox",
+    year: "2026",
+    tags: ["Web"],
+    featured: false,
+    role: "Full-stack Developer",
+    stack: "Next.js, React, Gmail API, Google Sheets API, Upstash, Vercel",
+    type: "Private Workspace / Email Workflow",
+    cover: covers[1],
+    image: {
+      src: "/projects/agen-inbox.webp",
+      alt: "Agen Inbox on a laptop plus two phones showing public login screens and generic workflow information, not a private inbox.",
+      width: 1296,
+      height: 1440,
+    },
+    gallery: [
+      { src: "/projects/agen-inbox/login-desktop.webp", alt: "Agen Inbox public login screen on desktop with sign-in, welcome and generic workflow information; no private inbox or records.", width: 2880, height: 1800 },
+      { src: "/projects/agen-inbox/login-mobile.webp", alt: "Agen Inbox public login screen on mobile with sign-in, welcome and generic workflow information; no private inbox or records.", width: 1170, height: 2532 },
+    ],
+    summary:
+      "A private workspace for reviewing alias email and manually recording follow-up results in Google Sheets.",
+    repoUrl: "https://github.com/mdprana/agen-inbox",
+    demoUrl: "https://agen-inbox.vercel.app/",
+    caseStudy: {
+      problem:
+        "Keep email review and spreadsheet follow-up together without automatically deciding or activating anything.",
+      approach:
+        "I built the workspace with Next.js and React, Gmail and Google Sheets integration, server-side OAuth with SHA-256 PKCE and Upstash token storage. Review stays manual, with BERHASIL/GAGAL updates limited to a single Status cell and no automatic activation.",
+      result:
+        "A restricted-access workflow whose public demo exposes sign-in only. Gallery images show public login screens on desktop and mobile, not a private inbox or agent records. No live Gmail or Google Sheets operation is claimed verified.",
+    },
+    metrics: [],
   },
 ];
 
