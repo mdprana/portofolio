@@ -291,8 +291,13 @@ export const projects: Project[] = [
       height: 1440,
     },
     gallery: [
-      { src: "/projects/mentalys/screens-1.webp", alt: "Mentalys home screen, screening hub and PHQ-9 questionnaire screens side by side.", width: 2880, height: 1800 },
-      { src: "/projects/mentalys/screens-2.webp", alt: "Mentalys face expression analysis, voice emotion analysis and screening results screens side by side.", width: 2880, height: 1800 },
+      { src: "/projects/mentalys/screens-1.webp", alt: "Mentalys welcome screen, login form and home screen with screening shortcuts and specialist cards.", width: 2880, height: 1800 },
+      { src: "/projects/mentalys/screens-2.webp", alt: "Mentalys screening hub with three pending checks, followed by the first and later PHQ-9 questionnaire pages.", width: 2880, height: 1800 },
+      { src: "/projects/mentalys/screens-3.webp", alt: "Mentalys face expression analysis, voice tone analysis with a 30-second timer, and the screening hub with all three checks done.", width: 2880, height: 1800 },
+      { src: "/projects/mentalys/screens-4.webp", alt: "Mentalys screening result: Minimal risk score of 0.20, AI interpretation and summary, then crisis guidance and disclaimer.", width: 2880, height: 1800 },
+      { src: "/projects/mentalys/screens-5.webp", alt: "Mentalys Ask AI chat screens and the mental test history list.", width: 2880, height: 1800 },
+      { src: "/projects/mentalys/screens-6.webp", alt: "Mentalys Pedia home with food recommendations, the mental health article list and an article detail page.", width: 2880, height: 1800 },
+      { src: "/projects/mentalys/screens-7.webp", alt: "Mentalys home screen with music and daily tips, a recipe sheet in Mentalys Pedia, and the settings screen.", width: 2880, height: 1800 },
     ],
     summary:
       "An Android app for early depression-risk screening that combines a PHQ-9 questionnaire with on-device facial and speech emotion recognition.",
