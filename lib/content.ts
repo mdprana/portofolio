@@ -275,64 +275,41 @@ export const stackLogos: Record<string, string> = {
 
 export const projects: Project[] = [
   {
-    slug: "locus-hotel",
-    title: "Locus Hotel",
-    year: "2024",
-    tags: ["Web"],
+    slug: "mentalys",
+    title: "Mentalys",
+    year: "2026",
+    tags: ["Machine Learning", "Mobile"],
     featured: true,
-    role: "Frontend Developer",
-    stack: "HTML, CSS, JavaScript, PHP, Laravel, Blade, Vite",
-    type: "Hospitality Website / Demo",
+    role: "ML Engineer & Android Developer",
+    stack: "Kotlin, TensorFlow Lite, ML Kit, Firebase, TypeScript, Express, Cloud Run",
+    type: "Undergraduate Thesis / Android App",
     cover: covers[1],
     image: {
-      src: "/projects/locus-hotel.webp",
-      alt: "Locus Hotel website presentation showing desktop and mobile layouts on a forest-green background.",
+      src: "/projects/mentalys.webp",
+      alt: "Mentalys presentation showing face analysis, home and screening result screens on three phones over a dark green background.",
       width: 1296,
       height: 1440,
     },
     gallery: [
-      { src: "/projects/locus-hotel/home.webp", alt: "Locus Hotel home page hero: 'The Perfect Base For You' headline with Take a Tour and Learn More buttons over a dimmed photo of a wooden A-frame resort beside a pool.", width: 2880, height: 1800 },
-      { src: "/projects/locus-hotel/rooms.webp", alt: "Locus Hotel Rooms page: 'Ultimate Room' banner above three Minimal Duplex Room cards with amenity icons.", width: 2880, height: 1800 },
-      { src: "/projects/locus-hotel/gallery.webp", alt: "Locus Hotel Gallery page: 'Photo Gallery' banner above a mountain landscape photo and an aerial view of a waterfront pool deck.", width: 2880, height: 1800 },
-      { src: "/projects/locus-hotel/blog.webp", alt: "Locus Hotel Blog page: 'Blog Feeds' banner above a featured post image and a sidebar with keyword search and Popular Feeds.", width: 2880, height: 1800 },
-      { src: "/projects/locus-hotel/contact.webp", alt: "Locus Hotel Contact page: 'Contact us' banner above cards listing the office address in Badung, Bali, phone numbers and email addresses.", width: 2880, height: 1800 },
+      { src: "/projects/mentalys/screens-1.webp", alt: "Mentalys home screen, screening hub and PHQ-9 questionnaire screens side by side.", width: 2880, height: 1800 },
+      { src: "/projects/mentalys/screens-2.webp", alt: "Mentalys face expression analysis, voice emotion analysis and screening results screens side by side.", width: 2880, height: 1800 },
     ],
     summary:
-      "A responsive hotel website frontend with room browsing, gallery and editorial pages, built with HTML, CSS and JavaScript in Laravel Blade.",
-    repoUrl: "https://github.com/mdprana/Locus-Hotel",
-    demoUrl: "https://locus-hotel.vercel.app",
+      "An Android app for early depression-risk screening that combines a PHQ-9 questionnaire with on-device facial and speech emotion recognition.",
+    repoUrl: "https://github.com/mdprana/mentalys",
+    demoUrl: "https://github.com/mdprana/mentalys/releases/tag/v1.0",
     caseStudy: {
       problem:
-        "Present hotel rooms, amenities and visual content in a consistent website layout that works across desktop and mobile screens.",
+        "Questionnaires alone miss signals that show in a face or a voice, and sending raw camera or microphone data to a server raises privacy concerns for a mental-health tool.",
       approach:
-        "I built the frontend with HTML, CSS and JavaScript, organized pages with Laravel Blade layouts and connected navigation through Laravel routes. The interface includes room listings, a gallery, blog and contact pages, plus arrival, departure and guest-selection controls.",
+        "I trained a VGG-16 + SE + attention face model on FER-2013 and a CNN-BiLSTM voice model on MFCC features from RAVDESS, exported both to TensorFlow Lite and ran them on the phone. A deterministic formula fuses PHQ-9, face and voice risk, with a safety override for severe PHQ-9 scores or any self-harm answer. Gemini only explains the result. Four TypeScript and Express services on Cloud Run handle accounts, history, content and clinics.",
       result:
-        "The public demo presents the responsive frontend and its supporting pages. It retains sample content, and the availability form is a visual prototype rather than a connected reservation system. No booking, payment or email-delivery integration is claimed.",
-    },
-    metrics: [],
-  },
-  {
-    slug: "lexa",
-    title: "Lexa",
-    year: "2026",
-    tags: ["NLP", "Machine Learning"],
-    featured: true,
-    role: "ML Engineer",
-    stack: "Python, PyTorch, FastAPI",
-    type: "NLP / Local Language",
-    cover: covers[0],
-    caseStudy: {
-      problem:
-        "Most speech and text tools ignore regional languages. Lexa needed to understand Balinese and Javanese input with almost no labeled data.",
-      approach:
-        "I built a cleaning pipeline for scraped corpora, fine-tuned a multilingual transformer, and evaluated it against native-speaker annotations.",
-      result:
-        "+18% F1 over the baseline, 4× faster inference, and a public demo used by 2,000+ people in its first month.",
+        "Test accuracy of 68.3% for the face model and 97.2% for the voice model, with on-device inference of about 0.33 s and 0.02 s on an Android 15 phone. Raw face and voice recordings stay on the device. It is a screening aid, not a diagnostic tool.",
     },
     metrics: [
-      { value: "+18%", label: "F1 score" },
-      { value: "4×", label: "Faster inference" },
-      { value: "2,000+", label: "Monthly users" },
+      { value: "97.2%", label: "Voice model accuracy" },
+      { value: "68.3%", label: "Face model accuracy" },
+      { value: "3", label: "Screening modalities" },
     ],
   },
   {
@@ -381,6 +358,43 @@ export const projects: Project[] = [
       { value: "<5s", label: "Alert latency" },
       { value: "99.9%", label: "Uptime" },
     ],
+  },
+  {
+    slug: "locus-hotel",
+    title: "Locus Hotel",
+    year: "2024",
+    tags: ["Web"],
+    featured: true,
+    role: "Frontend Developer",
+    stack: "HTML, CSS, JavaScript, PHP, Laravel, Blade, Vite",
+    type: "Hospitality Website / Demo",
+    cover: covers[1],
+    image: {
+      src: "/projects/locus-hotel.webp",
+      alt: "Locus Hotel website presentation showing desktop and mobile layouts on a cream and brown background.",
+      width: 1296,
+      height: 1440,
+    },
+    gallery: [
+      { src: "/projects/locus-hotel/home.webp", alt: "Locus Hotel home page hero: 'The Perfect Base For You' headline with Take a Tour and Learn More buttons over a dimmed photo of a wooden A-frame resort beside a pool.", width: 2880, height: 1800 },
+      { src: "/projects/locus-hotel/rooms.webp", alt: "Locus Hotel Rooms page: 'Ultimate Room' banner above three Minimal Duplex Room cards with amenity icons.", width: 2880, height: 1800 },
+      { src: "/projects/locus-hotel/gallery.webp", alt: "Locus Hotel Gallery page: 'Photo Gallery' banner above a mountain landscape photo and an aerial view of a waterfront pool deck.", width: 2880, height: 1800 },
+      { src: "/projects/locus-hotel/blog.webp", alt: "Locus Hotel Blog page: 'Blog Feeds' banner above a featured post image and a sidebar with keyword search and Popular Feeds.", width: 2880, height: 1800 },
+      { src: "/projects/locus-hotel/contact.webp", alt: "Locus Hotel Contact page: 'Contact us' banner above cards listing the office address in Badung, Bali, phone numbers and email addresses.", width: 2880, height: 1800 },
+    ],
+    summary:
+      "A responsive hotel website frontend with room browsing, gallery and editorial pages, built with HTML, CSS and JavaScript in Laravel Blade.",
+    repoUrl: "https://github.com/mdprana/Locus-Hotel",
+    demoUrl: "https://locus-hotel.vercel.app",
+    caseStudy: {
+      problem:
+        "Present hotel rooms, amenities and visual content in a consistent website layout that works across desktop and mobile screens.",
+      approach:
+        "I built the frontend with HTML, CSS and JavaScript, organized pages with Laravel Blade layouts and connected navigation through Laravel routes. The interface includes room listings, a gallery, blog and contact pages, plus arrival, departure and guest-selection controls.",
+      result:
+        "The public demo presents the responsive frontend and its supporting pages. It retains sample content, and the availability form is a visual prototype rather than a connected reservation system. No booking, payment or email-delivery integration is claimed.",
+    },
+    metrics: [],
   },
   {
     slug: "ledger",
