@@ -14,11 +14,13 @@ function load(source) {
 }
   const { projects, homeProjects, projectBySlug, nextProject, stackLogos } = load(fs.readFileSync(path.join(root, 'lib/content.ts'), 'utf8'));
   const before = load(execFileSync('git', ['show', 'HEAD:lib/content.ts'], { cwd: root, encoding: 'utf8' }));
-   const existing = ['mentalys', 'siraja', 'emotiscan', 'locus-hotel', 'insight-ptn', 'atlas'];
-  const inventory = [...existing, 'substrate-dev-template', 'agen-inbox'];
+
+   const inventory = ['mentalys', 'agen-inbox', 'siraja', 'insight-ptn', 'substrate-dev-template', 'emotiscan', 'locus-hotel', 'atlas'];
+   const chronological = [...before.projects].sort((a, b) => a.slug === 'mentalys' ? -1 : b.slug === 'mentalys' ? 1 : Number(b.year) - Number(a.year));
+   assert.deepEqual(projects.map(p => p.slug), chronological.map(p => p.slug));
   assert.deepEqual(projects.map(p => p.slug), inventory);
   assert.equal(new Set(projects.map(p => p.slug)).size, projects.length);
-   const featured = ['mentalys', 'substrate-dev-template', 'agen-inbox', 'locus-hotel'];
+   const featured = ['mentalys', 'agen-inbox', 'substrate-dev-template', 'locus-hotel'];
    assert.deepEqual(homeProjects.map(p => p.slug), featured);
    for (const slug of ['nodewatch', 'ledger', 'sentra', 'bloom']) assert.equal(projectBySlug(slug), undefined);
    for (const slug of inventory) {
@@ -103,7 +105,7 @@ function load(source) {
    assert.doesNotMatch(detailSource, /\.filter\(|findIndex\(/);
    assert.match(detailSource, /src=\{stackLogos\[name\]\}/);
    assert.match(detailSource, /alt=\{name\}/);
-   const counts = [7, 5, 5, 7, 5, 2, 5, 6];
+   const counts = [7, 6, 5, 5, 5, 5, 7, 2];
    for (const [index, project] of projects.entries()) {
      const tokens = project.stack.split(',').map(s => s.trim());
      assert.equal(tokens.length, counts[index]);
@@ -128,6 +130,6 @@ function load(source) {
        assert.match(item[2], /height="32"/);
      }
    }
-   console.log('Showcase checks passed: eight exact projects, Home order/flags, eight preserved objects, full nextProject cycle, metadata, disclosures, assets, complete logos and production li/img counts 7/5/5/7/5/2/5/6.');
+   console.log('Showcase checks passed: eight exact projects, Home order/flags, eight preserved objects, full nextProject cycle, metadata, disclosures, assets, complete logos and stable year-descending listing, production li/img counts 7/6/5/5/5/5/7/2.');
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

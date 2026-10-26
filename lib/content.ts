@@ -580,7 +580,9 @@ export const projects: Project[] = [
   },
 ];
 
-export const homeProjects = ["mentalys", "substrate-dev-template", "agen-inbox", "locus-hotel"].map(
+projects.sort((a, b) => a.slug === "mentalys" ? -1 : b.slug === "mentalys" ? 1 : Number(b.year) - Number(a.year));
+
+export const homeProjects = ["mentalys", "agen-inbox", "substrate-dev-template", "locus-hotel"].map(
   (slug) => projects.find((project) => project.slug === slug)!,
 );
 

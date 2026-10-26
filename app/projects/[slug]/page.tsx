@@ -110,7 +110,7 @@ export default async function ProjectPage({
                               width={32}
                               height={32}
                               unoptimized
-                              className="h-8 w-auto"
+                              className={`h-8 w-auto${["pandas", "scikit-learn", "scikit-image"].includes(name) ? " rounded-sm bg-white p-0.5" : ""}`}
                               style={(["Express", "Next.js", "Vercel"].includes(name)) ? { filter: "brightness(0) invert(1)" } : undefined}
                             />
                           </li>
