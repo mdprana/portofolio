@@ -20,7 +20,7 @@ export default function ContactPage() {
   const socials =
     footerColumns
       .find((column) => column.label === "(Social)")
-      ?.links.filter((link) => link.href && link.href !== "https://www.instagram.com/") ?? [];
+      ?.links.filter((link) => link.href) ?? [];
 
   const rows = [
     { label: "Email me", value: profile.email, href: `mailto:${profile.email}` },

@@ -22,7 +22,7 @@ export const profile = {
   location: "Bali, Indonesia — WITA (UTC+8)",
   locationShort: "Bali, Indonesia",
   socialLine: "LinkedIn · GitHub · Threads",
-  resumeUrl: "https://drive.google.com/",
+  resumeUrl: "https://drive.google.com/file/d/1UdIE1vEKGbZNNg8kGWZR6m0Mp58xHl5y/view?usp=sharing",
   availability:
     "Open to opportunities in machine learning, data science, and web development.",
   contactTitle: "Let’s talk", // Contact header (18:213)
@@ -58,7 +58,7 @@ export const footerColumns = [
       { text: "LinkedIn", href: "https://www.linkedin.com/in/mdprana" },
       { text: "GitHub", href: "https://github.com/mdprana" },
       { text: "Threads", href: "https://www.threads.net/@mdprana" },
-      { text: "Instagram", href: "https://www.instagram.com/" },
+      { text: "Instagram", href: "https://www.instagram.com/mdprana" },
     ],
   },
   {
