@@ -306,6 +306,8 @@ export const stackLogos: Record<string, string> = {
   "Google Sheets API": "/logos/googlesheets.svg",
   Upstash: "/logos/upstash.svg",
   Vercel: "/logos/vercel.svg",
+  SQLite: "/logos/sqlite.svg",
+  "Chart.js": "/logos/chartdotjs.svg",
 };
 
 export const projects: Project[] = [
@@ -351,6 +353,45 @@ export const projects: Project[] = [
       { value: "68.3%", label: "Face model accuracy" },
       { value: "3", label: "Screening modalities" },
     ],
+  },
+  {
+    slug: "fishpro",
+    title: "FishPro",
+    year: "2026",
+    tags: ["Web"],
+    featured: true,
+    role: "Full-stack Developer",
+    stack: "PHP, Laravel, Blade, Tailwind CSS, Vite, Chart.js, SQLite, Vercel",
+    type: "Operations App / Fish Processing Management",
+    cover: covers[3],
+    image: {
+      src: "/projects/fishpro.webp",
+      alt: "FishPro presentation showing the light-theme dashboard on a laptop plus two phones in dark theme with the dashboard and raw-material stock pages.",
+      width: 1296,
+      height: 1440,
+    },
+    gallery: [
+      { src: "/projects/fishpro/dashboard-light.webp", alt: "FishPro production dashboard in light theme: recovery and shrinkage cards, active PO, output, packed box and alert counters, and per-product process and packing progress for each purchase order.", width: 2880, height: 1800 },
+      { src: "/projects/fishpro/dashboard-dark.webp", alt: "The same FishPro production dashboard in dark theme, with recovery, shrinkage and counter cards above the per-PO product progress tables.", width: 2880, height: 1800 },
+      { src: "/projects/fishpro/purchase-orders.webp", alt: "FishPro Purchase Order list in light theme: buyer, products, unloading and stage columns, total boxes, progress, deadline and status for two demo orders.", width: 2880, height: 1800 },
+      { src: "/projects/fishpro/receiving.webp", alt: "FishPro raw material page in dark theme: current stock grouped by material category, each item with its kilogram balance and minimum-stock setting.", width: 2880, height: 1800 },
+      { src: "/projects/fishpro/batches.webp", alt: "FishPro Batch & Lot page in light theme: filters by PO, supplier, material, stage and date above a table of traceable raw-material batches with initial and remaining weight.", width: 2880, height: 1800 },
+      { src: "/projects/fishpro/production.webp", alt: "FishPro production process page in dark theme: shortcuts to cutting, trimming and steak stages, daily session, input, output and waste counters, and stage and PO filters.", width: 2880, height: 1800 },
+      { src: "/projects/fishpro/packing.webp", alt: "FishPro packing page in light theme with box list and packing input actions; the demo database has no packing sessions yet.", width: 2880, height: 1800 },
+    ],
+    summary:
+      "A fish processing management system that follows each purchase order from raw material receiving through batch traceability and production yield to packing.",
+    repoUrl: "https://github.com/mdprana/fishpro",
+    demoUrl: "https://fishpro.vercel.app",
+    caseStudy: {
+      problem:
+        "Track purchase orders, incoming raw material, production sessions and packed boxes in one place, so progress and shrinkage per product stay visible.",
+      approach:
+        "I built it with Laravel 11, Blade and Tailwind CSS on SQLite, with Chart.js for the dashboard. It covers purchase orders, raw material receiving with live yield estimates, batch and lot traceability, production sessions per stage, and packing with surplus tracking, plus readable light and dark themes.",
+      result:
+        "A public demo on Vercel with fictional seed data that can be reset. The dashboard shows per-product process and packing progress, early warnings, a stock summary and a 7-day output chart. Gallery images are read-only captures of the demo; no real buyers or production volumes are claimed.",
+    },
+    metrics: [],
   },
   {
     slug: "siraja",
@@ -500,28 +541,6 @@ export const projects: Project[] = [
     metrics: [],
   },
   {
-    slug: "atlas",
-    title: "Atlas",
-    year: "2024",
-    tags: ["NLP"],
-    featured: false,
-    role: "NLP Engineer",
-    stack: "Python, Hugging Face",
-    type: "NLP",
-    cover: covers[0],
-    caseStudy: {
-      problem: "Document search relied on exact keyword matches.",
-      approach:
-        "Built an embedding index with a lightweight reranker over the top candidate set.",
-      result: "Relevant documents moved into the top three results for most queries.",
-    },
-    metrics: [
-      { value: "3×", label: "Faster search" },
-      { value: "0.87", label: "NDCG@10" },
-      { value: "40k", label: "Documents" },
-    ],
-  },
-  {
     slug: "substrate-dev-template",
     title: "Polkadot.js Interface",
     year: "2025",
@@ -561,7 +580,7 @@ export const projects: Project[] = [
     title: "Agen Inbox",
     year: "2026",
     tags: ["Web"],
-    featured: true,
+    featured: false,
     role: "Full-stack Developer",
     stack: "Next.js, React, Gmail API, Google Sheets API, Upstash, Vercel",
     type: "Private Workspace / Email Workflow",
@@ -594,7 +613,7 @@ export const projects: Project[] = [
 
 projects.sort((a, b) => a.slug === "mentalys" ? -1 : b.slug === "mentalys" ? 1 : Number(b.year) - Number(a.year));
 
-export const homeProjects = ["mentalys", "agen-inbox", "substrate-dev-template", "locus-hotel"].map(
+export const homeProjects = ["mentalys", "fishpro", "substrate-dev-template", "locus-hotel"].map(
   (slug) => projects.find((project) => project.slug === slug)!,
 );
 
