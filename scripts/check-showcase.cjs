@@ -12,8 +12,9 @@ function load(source) {
   new Function('exports', 'module', output)(compiled.exports, compiled);
   return compiled.exports;
 }
-  const { projects, homeProjects, projectBySlug, nextProject, stackLogos, tools } = load(fs.readFileSync(path.join(root, 'lib/content.ts'), 'utf8'));
+  const { projects, filters, homeProjects, projectBySlug, nextProject, stackLogos, tools } = load(fs.readFileSync(path.join(root, 'lib/content.ts'), 'utf8'));
   const before = load(execFileSync('git', ['show', 'HEAD:lib/content.ts'], { cwd: root, encoding: 'utf8' }));
+  assert.deepEqual(filters, ['All', 'Machine Learning', 'Mobile', 'Web', 'Data']); assert.ok(filters.slice(1).every((f) => projects.some((p) => p.tags.includes(f))), 'every filter chip has a project');
 
    const inventory = ['mentalys', 'fishpro', 'agen-inbox', 'siraja', 'insight-ptn', 'substrate-dev-template', 'emotiscan', 'locus-hotel'];
    assert.equal(projects[0].slug, 'mentalys');

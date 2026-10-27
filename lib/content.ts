@@ -119,7 +119,6 @@ export const capabilities = [
   { label: "Web Development", dim: true },
 ];
 
-export const filters = ["All", "Machine Learning", "Data", "NLP", "IoT", "Web"];
 
 export type Tool = {
   name: string;
@@ -625,3 +624,6 @@ export function nextProject(slug: string) {
   const i = projects.findIndex((p) => p.slug === slug);
   return projects[(i + 1) % projects.length];
 }
+
+/** Filter chips come from project tags, so a category never shows up empty. */
+export const filters = ["All", ...Array.from(new Set(projects.flatMap((project) => project.tags)))];
