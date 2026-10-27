@@ -14,7 +14,7 @@ const inter = localFont({
   variable: "--font-inter",
 });
 
-const site = "https://prana.dev";
+const site = "https://www.mdprana.site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site),

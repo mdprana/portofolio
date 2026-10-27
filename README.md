@@ -2,6 +2,8 @@
 
 Personal portfolio of **Made Pranajaya Dibyacita** — data science & machine learning engineer.
 
+Live: https://www.mdprana.site (mirror: https://mdprana-portofolio.vercel.app). Every push to `main` deploys automatically on Vercel.
+
 Design source: Figma file `Portofolio` (key `Vfa2sw0KvmhagP7jjrZBJ6`), replicated in code.
 Product requirements: [`docs/PRD.md`](docs/PRD.md). UI/UX audit: [`docs/design-audit.md`](docs/design-audit.md).
 
