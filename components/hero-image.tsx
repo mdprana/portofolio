@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import { animate, inView, motion, useMotionValue, useScroll, useTransform } from "motion/react";
 
-const HERO = "/hero.png";
+const HERO = "/hero.webp";
 
 export default function HeroImage({
   src = HERO,
@@ -55,7 +55,7 @@ export default function HeroImage({
       <motion.div
         className={[
           "size-full",
-          src === HERO && "bg-[url(/hero.png)]",
+          src === HERO && "bg-[url(/hero.webp)]",
           "bg-cover bg-center will-change-transform",
           mobileStatic && "max-[809.98px]:!transform-none",
           "motion-reduce:!transform-none",
