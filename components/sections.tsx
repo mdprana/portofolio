@@ -77,8 +77,8 @@ export function About() {
       <FitText text="About Prana" />
       <div className="flex flex-col gap-12 md:flex-row md:justify-between">
         <div className="h-[340px] w-[310px] max-w-full shrink-0 bg-[url(/portrait.jpg)] bg-cover bg-center md:sticky md:top-24" />
-        <div className="flex max-w-[760px] flex-col gap-14">
-          {profile.paragraphs.map((paragraph) => (
+        <div className="flex max-w-[640px] flex-col gap-14">
+          {profile.summary.map((paragraph) => (
             <p key={paragraph} className="body-xl text-fg">
               {paragraph}
             </p>

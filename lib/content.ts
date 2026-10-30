@@ -16,7 +16,13 @@ export const profile = {
     { text: "data automation", strong: true },
     { text: ", and " },
     { text: "web applications", strong: true },
-    { text: ", from on-device mental-health screening to tools for daily operations." },
+    { text: " that help people work faster and make better decisions with their data." },
+  ],
+  // Home About summary only; /about keeps `paragraphs`.
+  summary: [
+    "Hi, I’m Prana, a Computer Science graduate from Universitas Udayana working across machine learning, data, and the web.",
+    "I build models, automation, and full-stack apps for real teams, from banking operations at BRI to language model evaluation at GoTo.",
+    "I believe technology is worth building when it solves a real problem. I care about models people can trust, data that stays honest, and tools that feel simple to use.",
   ],
   email: "mdpranajaya@gmail.com",
   location: "Bali, Indonesia — WITA (UTC+8)",
