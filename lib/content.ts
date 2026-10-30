@@ -22,6 +22,7 @@ export const profile = {
   summary: [
     "Hi, I’m Prana, a Computer Science graduate from Universitas Udayana working across machine learning, data, and the web.",
     "I build models, automation, and full-stack apps for real teams, from banking operations at BRI to language model evaluation at GoTo.",
+    "Along the way, I graduated with distinction from the Bangkit Academy machine learning path and co-authored image-captioning research published in JNATIA.",
     "I believe technology is worth building when it solves a real problem. I care about models people can trust, data that stays honest, and tools that feel simple to use.",
   ],
   email: "mdpranajaya@gmail.com",
