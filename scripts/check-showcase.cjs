@@ -28,7 +28,7 @@ function load(source) {
    assert.deepEqual(homeProjects.map(p => p.slug), projects.filter(p => p.featured).map(p => p.slug));
    assert.deepEqual(new Set(projects.filter(p => p.featured).map(p => p.slug)), new Set(featured));
    for (const slug of ['nodewatch', 'ledger', 'sentra', 'bloom', 'atlas']) assert.equal(projectBySlug(slug), undefined);
-   for (const slug of inventory.filter(s => s !== 'fishpro')) {
+   for (const slug of inventory.filter(s => !['fishpro', 'agen-inbox'].includes(s))) {
      const original = before.projects.find(p => p.slug === slug);
      assert.ok(original, `Missing preservation baseline: ${slug}`);
      assert.deepEqual(projectBySlug(slug), { ...original, featured: featured.includes(slug) });
@@ -70,7 +70,7 @@ function load(source) {
   for (const slug of ['siraja', 'emotiscan']) assert.deepEqual(fs.readdirSync(path.join(root, 'public/projects', slug)).sort(), projectBySlug(slug).gallery.map(a => path.basename(a.src)).sort());
   for (const [slug, title, year, role, type, stack, demo, gallery, logos] of [
     ['substrate-dev-template', 'Polkadot.js Interface', '2025', 'Frontend Developer', 'Developer Bootcamp / Blockchain Interface', 'React, TypeScript, Tailwind CSS, Polkadot.js API, Netlify', 'https://mdprana-polkadotjs-interface.netlify.app/', ['home', 'chain-state', 'extrinsics'], ['react.svg', 'typescript.svg', 'tailwindcss.svg', 'polkadot.svg', 'netlify.svg']],
-    ['agen-inbox', 'Agen Inbox', '2026', 'Full-stack Developer', 'Private Workspace / Email Workflow', 'Next.js, React, Gmail API, Google Sheets API, Upstash, Vercel', 'https://agen-inbox.vercel.app/', ['login-desktop', 'login-mobile'], ['nextdotjs.svg', 'react.svg', 'gmail.png', 'googlesheets.svg', 'upstash.svg', 'vercel.svg']],
+    ['agen-inbox', 'Agen Inbox', '2026', 'Full-stack Developer', 'Private Workspace / Email Workflow', 'Next.js, React, Google Sheets API, Cloudflare, Upstash, Vercel', 'https://agen-inbox.vercel.app/', ['dashboard-light', 'dashboard-dark', 'message-detail', 'manual-review', 'settings', 'login-desktop', 'login-mobile', 'mobile-inbox-dark', 'mobile-detail-dark', 'mobile-review-dark', 'mobile-settings-light'], ['nextdotjs.svg', 'react.svg', 'googlesheets.svg', 'cloudflare.svg', 'upstash.svg', 'vercel.svg']],
   ]) {
     const p = projectBySlug(slug);
     assert.deepEqual([p.title, p.year, p.role, p.type, p.stack, p.repoUrl, p.demoUrl], [title, year, role, type, stack, `https://github.com/mdprana/${slug}`, demo]);
@@ -80,9 +80,9 @@ function load(source) {
     assert.ok(p.summary.length > 50);
     assert.equal(p.image.src, `/projects/${slug}.webp`);
     assert.deepEqual([p.image.width, p.image.height], [1296, 1440]);
-    assert.match(p.image.alt, /laptop plus two phones/);
+    assert.match(p.image.alt, slug === 'agen-inbox' ? /synthetic demonstration desktop.*laptop.*inbox.*phone.*public login.*other phone/ : /laptop plus two phones/);
     assert.deepEqual(p.gallery.map(a => a.src), gallery.map(name => `/projects/${slug}/${name}.webp`));
-    assert.deepEqual(p.gallery.map(a => [a.width, a.height]), gallery.map(name => name === 'login-mobile' ? [1170, 2532] : [2880, 1800]));
+    assert.deepEqual(p.gallery.map(a => [a.width, a.height]), slug === 'agen-inbox' ? [[1904, 1014], [1903, 1015], [1901, 1012], [1904, 1014], [1919, 1012], [2880, 1864], ...Array(5).fill([1170, 2596])] : gallery.map(() => [2880, 1800]));
     assert.deepEqual(fs.readdirSync(path.join(root, 'public/projects', slug)).sort(), gallery.map(name => `${name}.webp`).sort());
     for (const [index, name] of stack.split(', ').entries()) {
       assert.equal(stackLogos[name], `/logos/${logos[index]}`);
@@ -101,9 +101,17 @@ function load(source) {
   assert.match(pk.caseStudy.result, /no transaction was submitted during capture.*Transfer execution is not independently verified/);
   assert.match(pk.gallery[2].alt, /preparation.*no transaction submitted/);
   const ai = projectBySlug('agen-inbox');
-  assert.match(ai.caseStudy.approach, /SHA-256 PKCE.*Upstash.*manual.*BERHASIL\/GAGAL.*single Status cell.*no automatic activation/);
-  assert.match(ai.caseStudy.result, /restricted-access.*sign-in only.*No live Gmail or Google Sheets operation is claimed verified/);
-  for (const asset of ai.gallery) assert.match(asset.alt, /public login screen.*no private inbox or records/);
+   const originalAi = before.projects.find(p => p.slug === 'agen-inbox');
+   for (const key of ['slug', 'title', 'year', 'tags', 'featured', 'role', 'type', 'cover', 'repoUrl', 'demoUrl', 'metrics']) assert.deepEqual(ai[key], originalAi[key], `Agen preserved field: ${key}`);
+   assert.equal(ai.gallery.length, 11);
+   assert.doesNotMatch(ai.stack, /Gmail|Outlook|Graph/);
+   const cloudflare = fs.readFileSync(path.join(root, 'public/logos/cloudflare.svg'), 'utf8');
+   assert.match(cloudflare, /<title>Cloudflare<\/title>/);
+   assert.match(cloudflare, /<path\b/);
+   assert.doesNotMatch(cloudflare, /<script|<image|href=|onload=/i);
+   assert.match(ai.caseStudy.approach, /Google Sheets integration, Cloudflare email ingestion and Upstash-backed session storage.*manual.*BERHASIL\/GAGAL.*selected Status cell.*no automatic activation/);
+   assert.match(ai.caseStudy.result, /Desktop gallery views are sanitized owner screenshots.*private data permanently redacted.*cover desktop and mobile workspace views use synthetic demonstration data.*real responsive frontend in local isolation.*Public login views use no credentials.*No live mailbox read, activation or Google Sheets write was performed or verified.*repository is private/);
+   for (const [index, asset] of ai.gallery.entries()) assert.match(asset.alt, index < 5 ? /redacted/ : index < 7 ? /public login/ : /synthetic demonstration data/);
   assert.doesNotMatch(JSON.stringify([pk, ai]), /\bBRI\b|\d+(?:\.\d+)?%/i);
   const fp = projectBySlug('fishpro');
   const fpGallery = ['dashboard-light', 'dashboard-dark', 'purchase-orders', 'receiving', 'batches', 'production', 'packing'];
@@ -173,9 +181,9 @@ function load(source) {
    }
    const headLogos = new Set(execFileSync('git', ['ls-tree', '--name-only', 'HEAD', 'public/logos/'], { cwd: root, encoding: 'utf8' }).split('\n').map(f => path.basename(f)));
    for (const name of fs.readdirSync(path.join(root, 'public/logos')).filter(f => /\.(svg|png)$/.test(f))) {
-     if (['sqlite.svg', 'chartdotjs.svg'].includes(name) && !headLogos.has(name)) continue;
+     if (['sqlite.svg', 'chartdotjs.svg', 'cloudflare.svg'].includes(name) && !headLogos.has(name)) continue;
      assert.ok(fs.readFileSync(path.join(root, 'public/logos', name)).equals(execFileSync('git', ['show', `HEAD:public/logos/${name}`], { cwd: root })), name);
    }
-   console.log('Showcase checks passed: eight exact projects with FishPro added and Atlas absent, Home mentalys/fishpro/substrate-dev-template/locus-hotel in standing order and matching featured flags, seven preserved objects, full nextProject cycle, metadata, disclosures, assets, complete logos and stable year-descending listing, production li/img counts 7/8/6/5/5/5/5/7, 24 mono toolkit tiles.');
+   console.log('Showcase checks passed: eight exact projects with FishPro added and Atlas absent, Home mentalys/fishpro/substrate-dev-template/locus-hotel in standing order and matching featured flags, six preserved objects, approved Agen Inbox gallery11/Cloudflare/empty metrics/provenance, full nextProject cycle, metadata, disclosures, assets, complete logos and stable year-descending listing, production li/img counts 7/8/6/5/5/5/5/7, 24 mono toolkit tiles.');
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

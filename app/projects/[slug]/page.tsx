@@ -84,7 +84,7 @@ export default async function ProjectPage({
             <div className="flex flex-wrap gap-6">
               {[
                 { label: "View demo", href: project.demoUrl },
-                { label: "Source code", href: project.repoUrl },
+                { label: project.slug === "agen-inbox" ? "Private repository" : "Source code", href: project.repoUrl },
               ].map(({ label, href }) => href && (
                 <a key={label} href={href} className="text-2xl text-fg underline transition-colors hover:text-muted focus-visible:text-muted motion-reduce:transition-none">
                   {label}
