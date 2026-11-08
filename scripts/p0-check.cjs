@@ -75,7 +75,7 @@ const base = process.env.BASE_URL || 'http://localhost:3120';
     for(const button of await page.getByRole('group',{name:'Filter projects'}).getByRole('button').all()){await button.click({force:true});await page.waitForTimeout(150);assert.equal(await button.getAttribute('aria-pressed'),'true');results.interactions.push({filter:await button.innerText(),cards:await page.locator('main a[href^="/projects/"]').count()});}
     await page.getByRole('button',{name:'All',exact:true}).click({force:true});await page.waitForTimeout(150);assert.equal(await page.locator('main a[href^="/projects/"]').count(),8);
     for(let i=0;i<8;i++){await page.goto(base+routes[4+i]);const links=await page.locator('main a[href^="/projects/"]').evaluateAll(ns=>ns.map(n=>n.getAttribute('href')));assert(links.includes(routes[4+(i+1)%8]));}
-    await page.goto(base+'/contact');assert.equal(await page.getByRole('link',{name:'Download Resume'}).getAttribute('href'),'https://drive.google.com/file/d/1UdIE1vEKGbZNNg8kGWZR6m0Mp58xHl5y/view?usp=sharing');
+    await page.goto(base+'/contact');assert.equal(await page.getByRole('link',{name:'Download Resume'}).getAttribute('href'),'https://drive.google.com/file/d/1jn6_Uvxg9fWjWL0Hxom9VQORqT9UzLdW/view?usp=drive_link');
     results.interactions.push({nextChain:'all eight correct',resume:'owner Drive resume link on contact'});
     const touch=await browser.newContext({hasTouch:true,isMobile:true,viewport:{width:390,height:844}});const tp=await touch.newPage();await tp.goto(base);await tp.touchscreen.tap(100,100);assert.equal(await tp.locator('.site-cursor').evaluate(n=>getComputedStyle(n).display),'none');await touch.close();
     results.interactions.push({touch:'real coarse context cursor suppressed'});

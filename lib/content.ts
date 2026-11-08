@@ -29,7 +29,7 @@ export const profile = {
   location: "Bali, Indonesia — WITA (UTC+8)",
   locationShort: "Bali, Indonesia",
   socialLine: "LinkedIn · GitHub · Threads",
-  resumeUrl: "https://drive.google.com/file/d/1UdIE1vEKGbZNNg8kGWZR6m0Mp58xHl5y/view?usp=sharing",
+  resumeUrl: "https://drive.google.com/file/d/1jn6_Uvxg9fWjWL0Hxom9VQORqT9UzLdW/view?usp=drive_link",
   availability:
     "Open to opportunities in machine learning, data science, and web development.",
   contactTitle: "Let’s talk", // Contact header (18:213)
