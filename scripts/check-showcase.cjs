@@ -22,7 +22,7 @@ function load(source) {
    assert.ok(projects.findIndex(p => p.slug === 'fishpro') < projects.findIndex(p => p.slug === 'agen-inbox'));
   assert.deepEqual(projects.map(p => p.slug), inventory);
   assert.equal(new Set(projects.map(p => p.slug)).size, projects.length);
-   const featured = ['mentalys', 'fishpro', 'substrate-dev-template', 'locus-hotel'];
+   const featured = ['mentalys', 'fishpro', 'agen-inbox', 'locus-hotel'];
    assert.deepEqual(homeProjects.map(p => p.slug), featured);
    for (let i = 2; i < homeProjects.length; i++) assert.ok(Number(homeProjects[i - 1].year) >= Number(homeProjects[i].year), homeProjects[i].slug);
    assert.deepEqual(homeProjects.map(p => p.slug), projects.filter(p => p.featured).map(p => p.slug));
@@ -75,7 +75,7 @@ function load(source) {
     const p = projectBySlug(slug);
     assert.deepEqual([p.title, p.year, p.role, p.type, p.stack, p.repoUrl, p.demoUrl], [title, year, role, type, stack, `https://github.com/mdprana/${slug}`, demo]);
     assert.deepEqual(p.tags, ['Web']);
-     assert.equal(p.featured, slug === 'substrate-dev-template');
+     assert.equal(p.featured, slug === 'agen-inbox');
      assert.deepEqual(p.metrics, []);
     assert.ok(p.summary.length > 50);
     assert.equal(p.image.src, `/projects/${slug}.webp`);
@@ -102,7 +102,7 @@ function load(source) {
   assert.match(pk.gallery[2].alt, /preparation.*no transaction submitted/);
   const ai = projectBySlug('agen-inbox');
    const originalAi = before.projects.find(p => p.slug === 'agen-inbox');
-   for (const key of ['slug', 'title', 'year', 'tags', 'featured', 'role', 'type', 'cover', 'repoUrl', 'demoUrl', 'metrics']) assert.deepEqual(ai[key], originalAi[key], `Agen preserved field: ${key}`);
+   for (const key of ['slug', 'title', 'year', 'tags', 'role', 'type', 'cover', 'repoUrl', 'demoUrl', 'metrics']) assert.deepEqual(ai[key], originalAi[key], `Agen preserved field: ${key}`);
    assert.equal(ai.gallery.length, 6);
    assert.doesNotMatch(ai.stack, /Gmail|Outlook|Graph/);
    const cloudflare = fs.readFileSync(path.join(root, 'public/logos/cloudflare.svg'), 'utf8');
@@ -185,6 +185,6 @@ function load(source) {
      if (['sqlite.svg', 'chartdotjs.svg', 'cloudflare.svg'].includes(name) && !headLogos.has(name)) continue;
      assert.ok(fs.readFileSync(path.join(root, 'public/logos', name)).equals(execFileSync('git', ['show', `HEAD:public/logos/${name}`], { cwd: root })), name);
    }
-   console.log('Showcase checks passed: eight exact projects with FishPro added and Atlas absent, Home mentalys/fishpro/substrate-dev-template/locus-hotel in standing order and matching featured flags, six preserved objects, approved Agen Inbox gallery6 desktop synthetic/Cloudflare/empty metrics/provenance, full nextProject cycle, metadata, disclosures, assets, complete logos and stable year-descending listing, production li/img counts 7/8/6/5/5/5/5/7, 24 mono toolkit tiles.');
+   console.log('Showcase checks passed: eight exact projects with FishPro added and Atlas absent, Home mentalys/fishpro/agen-inbox/locus-hotel in standing order and matching featured flags, six preserved objects, approved Agen Inbox gallery6 desktop synthetic/Cloudflare/empty metrics/provenance, full nextProject cycle, metadata, disclosures, assets, complete logos and stable year-descending listing, production li/img counts 7/8/6/5/5/5/5/7, 24 mono toolkit tiles.');
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

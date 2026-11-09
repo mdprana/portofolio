@@ -552,7 +552,7 @@ export const projects: Project[] = [
     title: "Polkadot.js Interface",
     year: "2025",
     tags: ["Web"],
-    featured: true,
+    featured: false,
     role: "Frontend Developer",
     stack: "React, TypeScript, Tailwind CSS, Polkadot.js API, Netlify",
     type: "Developer Bootcamp / Blockchain Interface",
@@ -587,7 +587,7 @@ export const projects: Project[] = [
     title: "Agen Inbox",
     year: "2026",
     tags: ["Web"],
-    featured: false,
+    featured: true,
     role: "Full-stack Developer",
     stack: "Next.js, React, Google Sheets API, Cloudflare, Upstash, Vercel",
     type: "Private Workspace / Email Workflow",
@@ -624,7 +624,7 @@ export const projects: Project[] = [
 
 projects.sort((a, b) => a.slug === "mentalys" ? -1 : b.slug === "mentalys" ? 1 : Number(b.year) - Number(a.year));
 
-export const homeProjects = ["mentalys", "fishpro", "substrate-dev-template", "locus-hotel"].map(
+export const homeProjects = ["mentalys", "fishpro", "agen-inbox", "locus-hotel"].map(
   (slug) => projects.find((project) => project.slug === slug)!,
 );
 
