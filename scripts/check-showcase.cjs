@@ -70,7 +70,7 @@ function load(source) {
   for (const slug of ['siraja', 'emotiscan']) assert.deepEqual(fs.readdirSync(path.join(root, 'public/projects', slug)).sort(), projectBySlug(slug).gallery.map(a => path.basename(a.src)).sort());
   for (const [slug, title, year, role, type, stack, demo, gallery, logos] of [
     ['substrate-dev-template', 'Polkadot.js Interface', '2025', 'Frontend Developer', 'Developer Bootcamp / Blockchain Interface', 'React, TypeScript, Tailwind CSS, Polkadot.js API, Netlify', 'https://mdprana-polkadotjs-interface.netlify.app/', ['home', 'chain-state', 'extrinsics'], ['react.svg', 'typescript.svg', 'tailwindcss.svg', 'polkadot.svg', 'netlify.svg']],
-    ['agen-inbox', 'Agen Inbox', '2026', 'Full-stack Developer', 'Private Workspace / Email Workflow', 'Next.js, React, Google Sheets API, Cloudflare, Upstash, Vercel', 'https://agen-inbox.vercel.app/', ['dashboard-light', 'dashboard-dark', 'message-detail', 'manual-review', 'settings', 'login-desktop', 'login-mobile', 'mobile-inbox-dark', 'mobile-detail-dark', 'mobile-review-dark', 'mobile-settings-light'], ['nextdotjs.svg', 'react.svg', 'googlesheets.svg', 'cloudflare.svg', 'upstash.svg', 'vercel.svg']],
+    ['agen-inbox', 'Agen Inbox', '2026', 'Full-stack Developer', 'Private Workspace / Email Workflow', 'Next.js, React, Google Sheets API, Cloudflare, Upstash, Vercel', 'https://agen-inbox.vercel.app/', ['dashboard-light', 'dashboard-dark', 'message-detail', 'manual-review', 'settings', 'login-desktop'], ['nextdotjs.svg', 'react.svg', 'googlesheets.svg', 'cloudflare.svg', 'upstash.svg', 'vercel.svg']],
   ]) {
     const p = projectBySlug(slug);
     assert.deepEqual([p.title, p.year, p.role, p.type, p.stack, p.repoUrl, p.demoUrl], [title, year, role, type, stack, `https://github.com/mdprana/${slug}`, demo]);
@@ -82,7 +82,7 @@ function load(source) {
     assert.deepEqual([p.image.width, p.image.height], [1296, 1440]);
     assert.match(p.image.alt, slug === 'agen-inbox' ? /synthetic demonstration desktop.*laptop.*inbox.*phone.*public login.*other phone/ : /laptop plus two phones/);
     assert.deepEqual(p.gallery.map(a => a.src), gallery.map(name => `/projects/${slug}/${name}.webp`));
-    assert.deepEqual(p.gallery.map(a => [a.width, a.height]), slug === 'agen-inbox' ? [[1904, 1014], [1903, 1015], [1901, 1012], [1904, 1014], [1919, 1012], [2880, 1864], ...Array(5).fill([1170, 2596])] : gallery.map(() => [2880, 1800]));
+    assert.deepEqual(p.gallery.map(a => [a.width, a.height]), slug === 'agen-inbox' ? Array(6).fill([2880, 1864]) : gallery.map(() => [2880, 1800]));
     assert.deepEqual(fs.readdirSync(path.join(root, 'public/projects', slug)).sort(), gallery.map(name => `${name}.webp`).sort());
     for (const [index, name] of stack.split(', ').entries()) {
       assert.equal(stackLogos[name], `/logos/${logos[index]}`);
@@ -103,15 +103,16 @@ function load(source) {
   const ai = projectBySlug('agen-inbox');
    const originalAi = before.projects.find(p => p.slug === 'agen-inbox');
    for (const key of ['slug', 'title', 'year', 'tags', 'featured', 'role', 'type', 'cover', 'repoUrl', 'demoUrl', 'metrics']) assert.deepEqual(ai[key], originalAi[key], `Agen preserved field: ${key}`);
-   assert.equal(ai.gallery.length, 11);
+   assert.equal(ai.gallery.length, 6);
    assert.doesNotMatch(ai.stack, /Gmail|Outlook|Graph/);
    const cloudflare = fs.readFileSync(path.join(root, 'public/logos/cloudflare.svg'), 'utf8');
    assert.match(cloudflare, /<title>Cloudflare<\/title>/);
    assert.match(cloudflare, /<path\b/);
    assert.doesNotMatch(cloudflare, /<script|<image|href=|onload=/i);
    assert.match(ai.caseStudy.approach, /Google Sheets integration, Cloudflare email ingestion and Upstash-backed session storage.*manual.*BERHASIL\/GAGAL.*selected Status cell.*no automatic activation/);
-   assert.match(ai.caseStudy.result, /Desktop gallery views are sanitized owner screenshots.*private data permanently redacted.*cover desktop and mobile workspace views use synthetic demonstration data.*real responsive frontend in local isolation.*Public login views use no credentials.*No live mailbox read, activation or Google Sheets write was performed or verified.*repository is private/);
-   for (const [index, asset] of ai.gallery.entries()) assert.match(asset.alt, index < 5 ? /redacted/ : index < 7 ? /public login/ : /synthetic demonstration data/);
+   assert.match(ai.caseStudy.result, /Gallery and cover workspace views use synthetic demonstration data captured from the real frontend in local isolation.*public login uses no credentials.*No live mailbox read, activation or Google Sheets write was performed or verified.*repository is private/);
+   for (const [index, asset] of ai.gallery.entries()) assert.match(asset.alt, index < 5 ? /synthetic demonstration data/ : /public login, no credentials/);
+    assert.doesNotMatch(JSON.stringify(ai), /redacted|sanitized owner/i);
   assert.doesNotMatch(JSON.stringify([pk, ai]), /\bBRI\b|\d+(?:\.\d+)?%/i);
   const fp = projectBySlug('fishpro');
   const fpGallery = ['dashboard-light', 'dashboard-dark', 'purchase-orders', 'receiving', 'batches', 'production', 'packing'];
@@ -184,6 +185,6 @@ function load(source) {
      if (['sqlite.svg', 'chartdotjs.svg', 'cloudflare.svg'].includes(name) && !headLogos.has(name)) continue;
      assert.ok(fs.readFileSync(path.join(root, 'public/logos', name)).equals(execFileSync('git', ['show', `HEAD:public/logos/${name}`], { cwd: root })), name);
    }
-   console.log('Showcase checks passed: eight exact projects with FishPro added and Atlas absent, Home mentalys/fishpro/substrate-dev-template/locus-hotel in standing order and matching featured flags, six preserved objects, approved Agen Inbox gallery11/Cloudflare/empty metrics/provenance, full nextProject cycle, metadata, disclosures, assets, complete logos and stable year-descending listing, production li/img counts 7/8/6/5/5/5/5/7, 24 mono toolkit tiles.');
+   console.log('Showcase checks passed: eight exact projects with FishPro added and Atlas absent, Home mentalys/fishpro/substrate-dev-template/locus-hotel in standing order and matching featured flags, six preserved objects, approved Agen Inbox gallery6 desktop synthetic/Cloudflare/empty metrics/provenance, full nextProject cycle, metadata, disclosures, assets, complete logos and stable year-descending listing, production li/img counts 7/8/6/5/5/5/5/7, 24 mono toolkit tiles.');
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

@@ -599,17 +599,12 @@ export const projects: Project[] = [
       height: 1440,
     },
     gallery: [
-      { src: "/projects/agen-inbox/dashboard-light.webp", alt: "Agen Inbox light desktop overview, sanitized owner screenshot with private data redacted.", width: 1904, height: 1014 },
-      { src: "/projects/agen-inbox/dashboard-dark.webp", alt: "Agen Inbox dark desktop overview, sanitized owner screenshot with private data redacted.", width: 1903, height: 1015 },
-      { src: "/projects/agen-inbox/message-detail.webp", alt: "Agen Inbox desktop inbox detail, owner identity and message content redacted.", width: 1901, height: 1012 },
-      { src: "/projects/agen-inbox/manual-review.webp", alt: "Agen Inbox manual review heading, private message and outcome redacted; no saved result asserted.", width: 1904, height: 1014 },
-      { src: "/projects/agen-inbox/settings.webp", alt: "Agen Inbox desktop settings, owner account data redacted.", width: 1919, height: 1012 },
-      { src: "/projects/agen-inbox/login-desktop.webp", alt: "Agen Inbox desktop public login, empty fields and no credentials entered.", width: 2880, height: 1864 },
-      { src: "/projects/agen-inbox/login-mobile.webp", alt: "Agen Inbox responsive mobile public login, no credentials entered.", width: 1170, height: 2596 },
-      { src: "/projects/agen-inbox/mobile-inbox-dark.webp", alt: "Agen Inbox mobile inbox with synthetic demonstration data in the real local responsive frontend.", width: 1170, height: 2596 },
-      { src: "/projects/agen-inbox/mobile-detail-dark.webp", alt: "Agen Inbox mobile message detail with synthetic demonstration data, no activation.", width: 1170, height: 2596 },
-      { src: "/projects/agen-inbox/mobile-review-dark.webp", alt: "Agen Inbox mobile manual review form with synthetic demonstration data; no status saved.", width: 1170, height: 2596 },
-      { src: "/projects/agen-inbox/mobile-settings-light.webp", alt: "Agen Inbox mobile settings with synthetic demonstration data, empty fields and no link issued.", width: 1170, height: 2596 },
+      { src: "/projects/agen-inbox/dashboard-light.webp", alt: "Agen Inbox light desktop overview with synthetic demonstration data.", width: 2880, height: 1864 },
+      { src: "/projects/agen-inbox/dashboard-dark.webp", alt: "Agen Inbox dark desktop overview with synthetic demonstration data.", width: 2880, height: 1864 },
+      { src: "/projects/agen-inbox/message-detail.webp", alt: "Agen Inbox desktop message detail with synthetic demonstration data, no activation.", width: 2880, height: 1864 },
+      { src: "/projects/agen-inbox/manual-review.webp", alt: "Agen Inbox desktop manual review form with synthetic demonstration data; no status saved.", width: 2880, height: 1864 },
+      { src: "/projects/agen-inbox/settings.webp", alt: "Agen Inbox desktop settings with synthetic demonstration data, empty fields and no link issued.", width: 2880, height: 1864 },
+      { src: "/projects/agen-inbox/login-desktop.webp", alt: "Agen Inbox desktop public login, no credentials, empty fields.", width: 2880, height: 1864 },
     ],
     summary:
       "A private workspace for reviewing alias email and manually recording follow-up results in Google Sheets.",
@@ -621,7 +616,7 @@ export const projects: Project[] = [
       approach:
         "I built the workspace with Next.js and React, Google Sheets integration, Cloudflare email ingestion and Upstash-backed session storage. Review stays manual, with BERHASIL/GAGAL updates limited to the selected Status cell and no automatic activation.",
       result:
-        "A restricted-access email review workspace. Desktop gallery views are sanitized owner screenshots with private data permanently redacted. The cover desktop and mobile workspace views use synthetic demonstration data captured from the real responsive frontend in local isolation. Public login views use no credentials. No live mailbox read, activation or Google Sheets write was performed or verified for this showcase. The repository is private.",
+        "A restricted-access email review workspace. Gallery and cover workspace views use synthetic demonstration data captured from the real frontend in local isolation. The public login uses no credentials. No live mailbox read, activation or Google Sheets write was performed or verified for this showcase. The repository is private.",
     },
     metrics: [],
   },
